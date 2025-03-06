@@ -12,7 +12,7 @@ import java.sql.DriverManager;
  * @author ASUS
  */
 public class DBUtils {
-    public static Connection makeConnection() throws Exception {
+    public static Connection getConnection() throws Exception {
         Connection cn = null;
         String IP = "localhost";
         String instanceName = "QUANGKHANH";
