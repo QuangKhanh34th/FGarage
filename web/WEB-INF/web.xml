@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>MainServlet</servlet-name>
+        <servlet-class>controller.MainServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>loginCustServlet</servlet-name>
+        <servlet-class>controller.loginCustServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>loginSalesServlet</servlet-name>
+        <servlet-class>controller.loginSalesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>loginMechanicServlet</servlet-name>
+        <servlet-class>controller.loginMechanicServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MainServlet</servlet-name>
+        <url-pattern>/MainServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loginCustServlet</servlet-name>
+        <url-pattern>/loginCustServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loginSalesServlet</servlet-name>
+        <url-pattern>/loginSalesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loginMechanicServlet</servlet-name>
+        <url-pattern>/loginMechanicServlet</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>MainServlet</welcome-file>
+    </welcome-file-list>
+    <Connector URIEncoding="UTF-8" connectionTimeout="20000" port="8080" protocol="HTTP/1.1" redirectPort="8443" useBodyEncodingForURI="true"/> 
+</web-app>
