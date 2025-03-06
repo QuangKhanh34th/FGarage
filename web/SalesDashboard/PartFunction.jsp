@@ -26,6 +26,8 @@
                         Parts Inventory
                     </h1>
                 </div>
+                
+                <p>something</p>
                 <p>Work in progress</p>
             </div>
         </div>
