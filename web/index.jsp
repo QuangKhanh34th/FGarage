@@ -20,7 +20,7 @@
 
         <div class="container w-25">
             <div class="col">
-                <form action="MainServlet" method="post" accept-charset="UTF-8">
+                <form action="MainServlet" method="get" accept-charset="utf-8">
                     <div class="mb-3">
                         <label for="target">Choose a login method</label>
                         <select class="form-select" name="target" id="target">
@@ -68,7 +68,7 @@
                             <input class="btn btn-secondary" type="submit" name="action" value="Login">
                         </div>
                     </div>
-                    
+                    <p id="error" style="color: red; font-weight: bold">${requestScope.error}</p>
                 </form>
             </div>
         </div>
