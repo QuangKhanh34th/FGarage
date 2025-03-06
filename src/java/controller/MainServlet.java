@@ -59,8 +59,6 @@ public class MainServlet extends HttpServlet {
                     */
                     case "Login": {
                         String target = request.getParameter("target");
-                        System.out.println("current target is: " + target);
-                        System.out.println("query string: " + request.getQueryString());
                         
                         switch(target) {
                             case "customer": {

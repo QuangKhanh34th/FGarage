@@ -40,5 +40,4 @@
     <welcome-file-list>
         <welcome-file>MainServlet</welcome-file>
     </welcome-file-list>
-    <Connector URIEncoding="UTF-8" connectionTimeout="20000" port="8080" protocol="HTTP/1.1" redirectPort="8443" useBodyEncodingForURI="true"/> 
 </web-app>

@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.SalesPerson;
 
 /**
@@ -35,15 +36,22 @@ public class loginSalesServlet extends HttpServlet {
             request.setCharacterEncoding("utf-8");
             
             String username = request.getParameter("salesName");
-            SalesDAO salesDAO = new SalesDAO();
-            SalesPerson sales = salesDAO.checkLogin(username);
             
-            System.out.println(sales.getSalesName() + "test2");
-            
-            if (sales == null) {
-                System.out.println("sales not found");
-            } else {
-                response.sendRedirect("SalesDashboard/home.jsp"); 
+            if (username != null) {
+                SalesDAO salesDAO = new SalesDAO();
+                SalesPerson sales = salesDAO.checkLogin(username);
+                
+                //if sales not found then redirect the error back to login page, 
+                //otherwise save login state into session then login
+                if (sales == null) {
+                    System.out.println("sales not found");
+                    request.setAttribute("error", "Invalid username");
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                } else {
+                    HttpSession s = request.getSession(true);
+                    s.setAttribute("sales", sales);
+                    response.sendRedirect("SalesDashboard/home.jsp");
+                }
             }
         }
     } 
