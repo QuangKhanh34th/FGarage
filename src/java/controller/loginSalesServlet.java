@@ -5,6 +5,7 @@
 
 package controller;
 
+import DAO.SalesDAO;
 import java.text.Normalizer;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.SalesPerson;
 
 /**
  *
@@ -29,16 +31,19 @@ public class loginSalesServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
+            request.setCharacterEncoding("utf-8");
             
             String username = request.getParameter("salesName");
-            username = username.replaceAll("\\s+", "");
-            System.out.println(username + " test");
+            SalesDAO salesDAO = new SalesDAO();
+            SalesPerson sales = salesDAO.checkLogin(username);
             
-            if (username.equals("HuynhMaiAnh")) {
-               response.sendRedirect("SalesDashboard/home.jsp"); 
+            System.out.println(sales.getSalesName() + "test2");
+            
+            if (sales == null) {
+                System.out.println("sales not found");
+            } else {
+                response.sendRedirect("SalesDashboard/home.jsp"); 
             }
         }
     } 
