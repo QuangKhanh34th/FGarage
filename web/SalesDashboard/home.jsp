@@ -24,7 +24,7 @@
             <div class="main p-3 d-flex">
                     <div class="text-center mx-auto my-auto">
                         <h1>
-                        Welcome back, ${insertnamehere}
+                        Welcome back, ${sessionScope.sales.salesName}
                         </h1>
                         <p>Please choose one of the following functions on the sidebar to begin</p>
                         <p class="text-muted">----- or -----</p>

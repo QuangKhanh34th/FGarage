@@ -32,7 +32,15 @@
                 <a class="navbar-brand" href="home.jsp" style="margin-left: 20px;">
                     Sales Dashboard
                 </a>
-                <a href="#" class="btn btn-secondary my-2 my-sm-0" style="margin-right: 20px;">Log out</a>
+                <form action="${pageContext.request.contextPath}/MainServlet" method="post">
+                    <input type="hidden" name="action" value="logout">
+                    <button 
+                        type="submit"
+                        class="btn btn-secondary my-2 my-sm-0"
+                        style="margin-right: 20px;">
+                    Logout
+                    </button>
+                </form>
             </nav>
         </header>
     </body>

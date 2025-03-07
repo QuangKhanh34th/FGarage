@@ -44,9 +44,9 @@ public class loginSalesServlet extends HttpServlet {
                 //if sales not found then redirect the error back to login page, 
                 //otherwise save login state into session then login
                 if (sales == null) {
-                    System.out.println("sales not found");
+                    System.out.println("[loginSalesServlet.java] Error login: sales not found");
                     request.setAttribute("error", "Invalid username");
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    request.getRequestDispatcher("Login/index.jsp").forward(request, response);
                 } else {
                     HttpSession s = request.getSession(true);
                     s.setAttribute("sales", sales);

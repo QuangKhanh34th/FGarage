@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -43,13 +44,15 @@ public class MainServlet extends HttpServlet {
             try {
                 //default redirect to sign-in page if no action has been recorded
                 if (action==null) {
-                    url = "index.jsp";
+                    action = SIGN_IN;
                 }
+                
+                System.out.println("[MainServlet.java] action: " + action);
                 
                 switch (action) {
                     //in case we add a sign-in button somewhere in the web
                     case SIGN_IN: {
-                        url = "index.html";
+                        url = "Login/index.jsp";
                         break;
                     }
                     
@@ -59,29 +62,39 @@ public class MainServlet extends HttpServlet {
                     */
                     case "Login": {
                         String target = request.getParameter("target");
-                        
                         switch(target) {
                             case "customer": {
-                                url="loginCustServlet";
+                                url="/loginCustServlet";
                                 break;
                             }
                             
                             case "sales": {
-                                url="loginSalesServlet";
+                                url="/loginSalesServlet";
                                 break;
                             }
                             
                             case "mechanic": {
-                                url="loginMechanicServlet";
+                                url="/loginMechanicServlet";
                                 break;
                             }
                         }
+                        
+                        break;
                     }
+                    
+                    //remove session then redirect to login page
+                    case "logout": {
+                        HttpSession session = request.getSession();
+                        session.invalidate();
+                        url="Login/index.jsp";
+                    }
+                    
                     
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
+                System.out.println("[MainServlet.java] assigned url: " + url);
                 request.getRequestDispatcher(url).forward(request, response);
             }
         }
