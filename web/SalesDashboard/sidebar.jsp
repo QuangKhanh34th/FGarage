@@ -93,7 +93,11 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <%--Clickable text as form to prevent showing logout action on adress bar--%>
+                    <form id="logoutForm" action="${pageContext.request.contextPath}/MainServlet" method="post">
+                        <input type="hidden" name="action" value="logout">
+                    </form>
+                    <a href="#" id="logoutClickableText" class="sidebar-link">
                         <i class="bi bi-box-arrow-in-left"></i>
                         <span style="font-weight: bold;">Logout</span>
                     </a>

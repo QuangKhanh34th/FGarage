@@ -11,7 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>FGarage</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/SalesDashboard/css/bootstrap.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/mystyle.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Login/mystyle.css">
     </head>
     <body>
 <div class="text-center" style="background-color: #bbbcc2; padding:5px; margin-bottom: 15px;">
@@ -74,7 +74,7 @@
         </div>
 
 
-        <script src="${pageContext.request.contextPath}/loginScript.js"></script>
+        <script src="${pageContext.request.contextPath}/Login/loginScript.js"></script>
         <script src="${pageContext.request.contextPath}/SalesDashboard/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
