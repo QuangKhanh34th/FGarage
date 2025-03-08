@@ -24,6 +24,10 @@
         <servlet-name>loginMechanicServlet</servlet-name>
         <servlet-class>controller.loginMechanicServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PartServlet</servlet-name>
+        <servlet-class>controller.PartServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
         <url-pattern>/MainServlet</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>loginMechanicServlet</servlet-name>
         <url-pattern>/loginMechanicServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PartServlet</servlet-name>
+        <url-pattern>/PartServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
