@@ -57,7 +57,7 @@ public class PartDAO {
         try {
             cn = utils.DBUtils.getConnection();
             if (cn != null) {
-                String sql = "INSERT Into Parts (partName, purchasePrice, retailPrice) VALUES (?,?,?)";
+                String sql = "INSERT Into Parts (partName, purchasePrice, retailPrice) VALUES ( ?,?,?)";
                 pt = cn.prepareStatement(sql);
                 pt.setString(1, part.getPartName());
                 pt.setDouble(2, part.getPurchasePrice());

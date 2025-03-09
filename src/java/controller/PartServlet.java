@@ -24,38 +24,49 @@ public class PartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         try {
-            request.setCharacterEncoding("UTF-8");
-            response.setContentType("text/html; charset=UTF-8");
-
-            String action = request.getParameter("action");
-            partDAO = new PartDAO();
-            if ("search".equals(action)) {
-                String searchName = request.getParameter("partName");
-                if (searchName != null && !searchName.trim().isEmpty()) {
-                    try {
-                        ArrayList<Part> searchedParts = partDAO.getPartByName(searchName);
-                        if (searchedParts != null && !searchedParts.isEmpty()) {
-                            request.setAttribute("searchedParts", searchedParts);
-                        } else {
-                            request.setAttribute("searchMessage", "Không tìm thấy phụ tùng nào.");
-                        }
-                    } catch (SQLException ex) {
-                        Logger.getLogger(PartServlet.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else {
-                    request.setAttribute("searchMessage", "Vui lòng nhập tên phụ tùng để tìm kiếm.");
-                }
-            }
             ArrayList<Part> parts = partDAO.getAllParts();
-            request.setAttribute("parts", parts);
+            if (parts == null || parts.isEmpty()) {
+                request.setAttribute("searchMessage", "Không có dữ liệu phụ tùng.");
+            } else {
+                request.setAttribute("parts", parts);
+            }
+
+            request.getRequestDispatcher("PartFunction.jsp").forward(request, response);
+            try {
+                request.setCharacterEncoding("UTF-8");
+                response.setContentType("text/html; charset=UTF-8");
+
+                String action = request.getParameter("action");
+                partDAO = new PartDAO();
+                if ("search".equals(action)) {
+                    String searchName = request.getParameter("partName");
+                    if (searchName != null && !searchName.trim().isEmpty()) {
+                        try {
+                            ArrayList<Part> searchedParts = partDAO.getPartByName(searchName);
+                            if (searchedParts != null && !searchedParts.isEmpty()) {
+                                request.setAttribute("searchedParts", searchedParts);
+                            } else {
+                                request.setAttribute("searchMessage", "Không tìm thấy phụ tùng nào.");
+                            }
+                        } catch (SQLException ex) {
+                            Logger.getLogger(PartServlet.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else {
+                        request.setAttribute("searchMessage", "Vui lòng nhập tên phụ tùng để tìm kiếm.");
+                    }
+                }
+                parts = partDAO.getAllParts();
+                request.setAttribute("parts", parts);
+
+                request.getRequestDispatcher(
+                        "PartFunction.jsp").forward(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(PartServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(PartServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        request.getRequestDispatcher(
-                "PartFunction.jsp").forward(request, response);
     }
 
     @Override
@@ -123,7 +134,7 @@ public class PartServlet extends HttpServlet {
                     request.getSession().setAttribute("error", "Lỗi khi cập nhật phụ tùng");
                     response.sendRedirect("PartFunction.jsp");
                 }
-            } else if (action.equals("delete")) {
+            }else if (action.equals("delete")) {
                 int id = Integer.parseInt(request.getParameter("partID"));
                 partDAO.deletePart(id);
                 request.getSession().setAttribute("message", "Xóa phụ tùng thành công!");
@@ -132,22 +143,24 @@ public class PartServlet extends HttpServlet {
                 request.getRequestDispatcher("PartFunction.jsp").forward(request, response);
 
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(PartServlet.class.getName()).log(Level.SEVERE, null, ex);
-            request.getSession().setAttribute("errorMessage", "Lỗi cơ sở dữ liệu: " + ex.getMessage());
-        } catch (Exception ex) {
-            Logger.getLogger(PartServlet.class.getName()).log(Level.SEVERE, null, ex);
-            request.getSession().setAttribute("errorMessage", "Lỗi: " + ex.getMessage());
-        }
     }
+    catch (SQLException ex) {
+            Logger.getLogger(PartServlet.class.getName()).log(Level.SEVERE, null, ex);
+        request.getSession().setAttribute("errorMessage", "Lỗi cơ sở dữ liệu: " + ex.getMessage());
+    }
+    catch (Exception ex) {
+            Logger.getLogger(PartServlet.class.getName()).log(Level.SEVERE, null, ex);
+        request.getSession().setAttribute("errorMessage", "Lỗi: " + ex.getMessage());
+    }
+}
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
+/**
+ * Returns a short description of the servlet.
+ *
+ * @return a String containing servlet description
+ */
+@Override
+        public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

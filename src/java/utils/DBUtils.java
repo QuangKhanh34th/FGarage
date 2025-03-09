@@ -15,7 +15,7 @@ import java.util.Properties;
 public class DBUtils {
 
     public static Connection getConnection() throws Exception {
-        /* Connection cn = null;
+        Connection cn = null;
          String IP = "localhost";
         String instanceName = "QUANGKHANH";
         //TCP/IP port of the dbms
@@ -26,12 +26,8 @@ public class DBUtils {
         String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
         String url = "jdbc:sqlserver://" + IP + "\\" + instanceName + ":" + port + 
                 ";databasename=" + dbName + ";user=" +userName + ";password=" + pwd;
-       Class.forName(driver);
-        cn = DriverManager.getConnection(url);
-        return cn; 
-         */
-        Connection cn = null;
-        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+
+        /*Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String url = "jdbc:sqlserver://localhost:1433;databaseName=Car_Dealership;encrypt=false;trustServerCertificate=true";
         Properties props = new Properties();
         props.setProperty("user", "sa");
@@ -39,6 +35,9 @@ public class DBUtils {
         props.setProperty("useUnicode", "true");
         props.setProperty("characterEncoding", "UTF-8");
         cn = DriverManager.getConnection(url, props);
-        return cn;
+        return cn;*/
+       Class.forName(driver);
+        cn = DriverManager.getConnection(url);
+        return cn; 
     }
 }
