@@ -4,7 +4,6 @@
     Author     : ASUS
 --%>
 
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,7 +12,7 @@
         <title>Header</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/SalesDashboard/css/bootstrap.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/SalesDashboard/bootstrap-icons-1.11.3/font/bootstrap-icons.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/SalesDashboard/salesStyle.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CustomerDashboard/customerStyle.css">
 
         <style>
             body {
@@ -29,9 +28,9 @@
     </head>
     <body>
         <header class="container">
-            <nav class="navbar fixed-top navbar-dark bg-dark">
-                <a class="navbar-brand" href="home.jsp" style="margin-left: 20px;">
-                    Mechanic Dashboard
+            <nav class="navbar fixed-top header">
+                <a class="navbar-brand" href="home.jsp" style="margin-left: 20px; color: #EBEBEB;">
+                    Customer Dashboard
                 </a>
                 <form action="${pageContext.request.contextPath}/MainServlet" method="post">
                     <input type="hidden" name="action" value="logout">
