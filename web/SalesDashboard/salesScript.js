@@ -7,4 +7,5 @@ hamBurger.addEventListener("click", function () {
 document.getElementById('logoutClickableText').addEventListener('click', function() {
     event.preventDefault();
     document.getElementById('logoutForm').submit();
+    console.log('Logout form submitted');
 });

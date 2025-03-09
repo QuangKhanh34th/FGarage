@@ -1,6 +1,6 @@
 <%-- 
     Document   : home
-    Created on : Mar 4, 2025, 7:12:14 PM
+    Created on : Mar 9, 2025, 2:43:01 PM
     Author     : ASUS
 --%>
 
@@ -9,8 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Sales Dashboard</title>
-
+        <title>Mechanic Dashboard</title>
     </head>
     <body>
         <%--Header--%>
@@ -24,7 +23,7 @@
             <div class="main p-3 d-flex">
                     <div class="text-center mx-auto my-auto">
                         <h1>
-                        Welcome back, ${sessionScope.sales.salesName}
+                        Welcome back, ${sessionScope.mechanic.mechanicName}
                         </h1>
                         <p>Please choose one of the following functions on the sidebar to begin</p>
                         <p class="text-muted">----- or -----</p>
@@ -36,8 +35,9 @@
                             Logout
                             </button>
                         </form>
-                </div>  
+                </div>
+                            
             </div>
-        </div>                   
+        </div>
     </body>
 </html>
