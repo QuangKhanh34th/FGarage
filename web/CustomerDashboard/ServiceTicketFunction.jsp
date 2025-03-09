@@ -12,6 +12,22 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <%--Header--%>
+        <jsp:include page="header.jsp"/>
+
+        <div class="wrapper">
+            <%--Side bar--%>
+            <jsp:include page="sidebar.jsp"/>
+            
+            <%--Main content--%>
+            <div class="main p-3">
+                <div class="text-center">
+                    <h1>
+                        Service Tickets
+                    </h1>
+                </div>
+                <p>Work in progress</p>
+            </div>
+        </div>
     </body>
 </html>
