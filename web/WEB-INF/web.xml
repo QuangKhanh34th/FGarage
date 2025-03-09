@@ -45,9 +45,9 @@
         <url-pattern>/loginMechanicServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>PartServlet</servlet-name>
-        <url-pattern>/PartServlet</url-pattern>
-    </servlet-mapping>
+    <servlet-name>PartServlet</servlet-name>
+    <url-pattern>/SalesDashboard/PartServlet</url-pattern>
+</servlet-mapping>
     <session-config>
         <session-timeout>
             30

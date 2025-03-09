@@ -85,7 +85,7 @@ public class PartDAO {
         try {
             cn = utils.DBUtils.getConnection();
             if (cn != null) {
-                String sql = "UPDATE Part SET partName=?, purchasePrice=?, retailPrice=? WHERE partID=?";
+                String sql = "UPDATE Parts SET partName=?, purchasePrice=?, retailPrice=? WHERE partID=?";
                 pt = cn.prepareStatement(sql);
                 pt.setString(1, part.getPartName());
                 pt.setDouble(2, part.getPurchasePrice());
@@ -95,6 +95,7 @@ public class PartDAO {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+            System.out.println("SQL Error: " + ex.getMessage());
         } finally {
 
             if (pt != null) {
