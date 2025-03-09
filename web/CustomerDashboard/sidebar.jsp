@@ -4,7 +4,6 @@
     Author     : ASUS
 --%>
 
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,7 +12,8 @@
         <title>JSP Page</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/SalesDashboard/css/bootstrap.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/SalesDashboard/bootstrap-icons-1.11.3/font/bootstrap-icons.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/SalesDashboard/salesStyle.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CustomerDashboard/salesStyle.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CustomerDashboard/customerStyle.css">
 
     </head>
     <body>
@@ -28,16 +28,21 @@
             </div>
             <ul class="sidebar-nav">
                 <li class="sidebar-item">
-                    <a href="ServicesFunction.jsp" class="sidebar-link">
-                        <i class="bi bi-wrench"></i>
-                        <span style="font-weight: bold;">Services</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
                     <a href="ServiceTicketFunction.jsp" class="sidebar-link">
                         <i class="bi bi-ticket-detailed"></i>
                         <span style="font-weight: bold;">Service Tickets</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="InvoiceFunction.jsp" class="sidebar-link">
+                        <i class="bi bi-receipt-cutoff"></i>
+                        <span style="font-weight: bold;">Invoices</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="ProfileFunction.jsp" class="sidebar-link">
+                        <i class="bi bi-person"></i>
+                        <span style="font-weight: bold;">Profile</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
