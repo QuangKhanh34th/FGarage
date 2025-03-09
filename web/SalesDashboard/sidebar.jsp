@@ -60,7 +60,7 @@
                   </a>
                   <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                       <li class="sidebar-item">
-                          <a href="ServiceTicketFuntion.jsp" class="sidebar-link">
+                          <a href="ServiceTicketFunction.jsp" class="sidebar-link">
                             <i class="bi bi-ticket-detailed"></i>
                             Service Tickets
                         </a>
