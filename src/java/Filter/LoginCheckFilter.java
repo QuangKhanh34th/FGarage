@@ -113,6 +113,8 @@ public class LoginCheckFilter implements Filter {
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             HttpSession session = httpRequest.getSession();
             SalesPerson salesUser = (SalesPerson) session.getAttribute("sales");
+
+
             
             //debug console to track web access flow
             String requestURI = httpRequest.getRequestURI();
@@ -135,6 +137,7 @@ public class LoginCheckFilter implements Filter {
                 return;
             }
             
+
             //session not found or user object is not found then redirect to login page
             if (session == null || salesUser == null) {
                 System.out.println("[LoginCheckFilter.java] login state is false (logged out), redirecting the user to: " + httpRequest.getContextPath() + "/MainServlet");
