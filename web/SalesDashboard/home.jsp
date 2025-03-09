@@ -28,9 +28,16 @@
                         </h1>
                         <p>Please choose one of the following functions on the sidebar to begin</p>
                         <p class="text-muted">----- or -----</p>
-                        <a href="#">Log out</a>
+                        <form action="${pageContext.request.contextPath}/MainServlet" method="post">
+                            <input type="hidden" name="action" value="logout">
+                            <button 
+                                type="submit"
+                                class="btn btn-secondary my-2 my-sm-0">
+                            Logout
+                            </button>
+                        </form>
                 </div>  
             </div>
-        </div>
+        </div>                   
     </body>
 </html>
