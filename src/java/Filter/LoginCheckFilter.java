@@ -112,7 +112,8 @@ public class LoginCheckFilter implements Filter {
         try {
             HttpServletRequest httpRequest = (HttpServletRequest) request;
             HttpServletResponse httpResponse = (HttpServletResponse) response;
-            HttpSession session = httpRequest.getSession();
+            //only check for login and not creating new session for resource saving
+            HttpSession session = httpRequest.getSession(false);
             SalesPerson sales = (SalesPerson) session.getAttribute("sales");
             Mechanic mechanic = (Mechanic) session.getAttribute("mechanic");
             
