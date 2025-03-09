@@ -40,16 +40,16 @@ public class loginSalesServlet extends HttpServlet {
             if (username != null) {
                 SalesDAO salesDAO = new SalesDAO();
                 SalesPerson sales = salesDAO.checkLogin(username);
+                HttpSession session = request.getSession(true);
                 
                 //if sales not found then redirect the error back to login page, 
                 //otherwise save login state into session then login
                 if (sales == null) {
                     System.out.println("[loginSalesServlet.java] Error login: sales not found");
-                    request.setAttribute("error", "Invalid username");
-                    request.getRequestDispatcher("Login/index.jsp").forward(request, response);
+                    session.setAttribute("error", "Invalid username");
+                    response.sendRedirect("MainServlet");
                 } else {
-                    HttpSession s = request.getSession(true);
-                    s.setAttribute("sales", sales);
+                    session.setAttribute("sales", sales);
                     response.sendRedirect("SalesDashboard/home.jsp");
                 }
             }

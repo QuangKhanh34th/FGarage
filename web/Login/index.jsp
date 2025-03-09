@@ -68,7 +68,15 @@
                             <input class="btn btn-secondary" type="submit" name="action" value="Login">
                         </div>
                     </div>
-                    <p id="error" style="color: red; font-weight: bold">${requestScope.error}</p>
+
+                    <p id="error" style="color: red; font-weight: bold">${sessionScope.error}</p>
+                    <%  
+                        //remove error message if user refresh the page after getting an error
+                        String errorString = (String) session.getAttribute("error");
+                        if (errorString!=null) {
+                            session.removeAttribute("error");
+                        }
+                    %>
                 </form>
             </div>
         </div>
