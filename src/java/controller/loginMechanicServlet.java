@@ -5,15 +5,12 @@
 
 package controller;
 
-import DAO.MechanicDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Mechanic;
 
 /**
  *
@@ -32,22 +29,16 @@ public class loginMechanicServlet extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String username = request.getParameter("mechanicName");
-            
-            if (username != null) {
-                MechanicDAO mechanicDAO = new MechanicDAO();
-                Mechanic mechanic = mechanicDAO.checkLogin(username);
-                HttpSession session = request.getSession(true);
-                
-                if (mechanic != null) {
-                    session.setAttribute("mechanic", mechanic);
-                    response.sendRedirect("MechanicDashboard/home.jsp");
-                } else {
-                    System.out.println("[loginMechanicServlet.java] Error login: mechanic not found");
-                    session.setAttribute("error", "Invalid username");
-                    response.sendRedirect("MainServlet");
-                }
-            }
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet loginMechanicServlet</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet loginMechanicServlet at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     } 
 

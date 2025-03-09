@@ -46,10 +46,11 @@ public class MainServlet extends HttpServlet {
                 if (action==null) {
                     action = SIGN_IN;
                 }
-                //for debugging purposes
+                
                 System.out.println("[MainServlet.java] action: " + action);
                 
                 switch (action) {
+                    //in case we add a sign-in button somewhere in the web
                     case SIGN_IN: {
                         url = "Login/index.jsp";
                         break;

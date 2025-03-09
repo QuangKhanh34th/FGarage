@@ -18,8 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
-import model.Customer;
-import model.Mechanic;
 import model.SalesPerson;
 
 /**
@@ -114,9 +112,7 @@ public class LoginCheckFilter implements Filter {
             HttpServletRequest httpRequest = (HttpServletRequest) request;
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             HttpSession session = httpRequest.getSession();
-            SalesPerson sales = (SalesPerson) session.getAttribute("sales");
-            Mechanic mechanic = (Mechanic) session.getAttribute("mechanic");
-            Customer customer = (Customer) session.getAttribute("customer");
+            SalesPerson salesUser = (SalesPerson) session.getAttribute("sales");
             
             //debug console to track web access flow
             String requestURI = httpRequest.getRequestURI();
@@ -139,10 +135,8 @@ public class LoginCheckFilter implements Filter {
                 return;
             }
             
-            //check for user object in session 
-            boolean user = sales != null || mechanic != null || customer != null;
             //session not found or user object is not found then redirect to login page
-            if (session == null || !user) {
+            if (session == null || salesUser == null) {
                 System.out.println("[LoginCheckFilter.java] login state is false (logged out), redirecting the user to: " + httpRequest.getContextPath() + "/MainServlet");
                 httpResponse.sendRedirect(httpRequest.getContextPath() + "/MainServlet");
             } else {

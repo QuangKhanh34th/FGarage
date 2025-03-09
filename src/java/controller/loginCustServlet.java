@@ -5,15 +5,12 @@
 
 package controller;
 
-import DAO.CustomerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Customer;
 
 /**
  *
@@ -32,23 +29,7 @@ public class loginCustServlet extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String username = request.getParameter("cusName");
-            String phone = request.getParameter("cusPhone");
-            
-            if (username != null && phone != null) {
-                CustomerDAO customerDAO = new CustomerDAO();
-                Customer customer = customerDAO.checkLogin(username, phone);
-                HttpSession session = request.getSession();
-                
-                if (customer != null) {
-                    session.setAttribute("customer", customer);
-                    response.sendRedirect("CustomerDashboard/home.jsp");
-                } else {
-                    System.out.println("[loginCustServlet.java] Error login: customer not found");
-                    session.setAttribute("error", "Invalid Credentials");
-                    response.sendRedirect("MainServlet");
-                }
-            }
+            out.print("Work in progress");
         }
     } 
 
