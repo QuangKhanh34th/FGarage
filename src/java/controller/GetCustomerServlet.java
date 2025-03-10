@@ -35,12 +35,28 @@ public class GetCustomerServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             //Initializing variables
             HttpSession session = request.getSession();
+            ArrayList<Customer> allCustomers = (ArrayList<Customer>) session.getAttribute("customerList");
             
-            //remove comment to use dummy data.
-            //ArrayList<Customer> allCustomers = createDummyCustomerList();
-            ArrayList<Customer> allCustomers = SalesDAO.getAllCustomers();
-            session.setAttribute("customerList", allCustomers);
+            // If customerList is null, get it from database
+            if (allCustomers == null) {
+                //remove comment to use dummy data.
+                //ArrayList<Customer> allCustomers = createDummyCustomerList();
+                allCustomers = SalesDAO.getAllCustomers();
+                session.setAttribute("customerList", allCustomers);
+            }
             
+            // Search functionality
+            String searchTerm = request.getParameter("searchName");
+            ArrayList<Customer> filteredCustomers = allCustomers; // Initialize with all customers
+
+            if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+                filteredCustomers = new ArrayList<>();
+                for (Customer customer : allCustomers) {
+                    if (customer.getCustName().toLowerCase().contains(searchTerm.toLowerCase())) {
+                        filteredCustomers.add(customer);
+                    }
+                }
+            }
             
             /*
                 Result Pagination
@@ -55,7 +71,7 @@ public class GetCustomerServlet extends HttpServlet {
                 page = Integer.parseInt(request.getParameter("page"));
             }
             
-            int totalCustomers = allCustomers.size();
+            int totalCustomers = filteredCustomers.size();
             /*
                 Calculating the total number of pages needed to display all records
                 Initial formula: totalCustomers / recordsPerPage
@@ -82,9 +98,8 @@ public class GetCustomerServlet extends HttpServlet {
             int endIndex = Math.min(startIndex + recordsPerPage, totalCustomers);
             
             //using calculated data(start, end, totalPage) to break customer data into the data of the current page number
-            ArrayList<Customer> currentCusPageList = new ArrayList<>(allCustomers.subList(startIndex, endIndex));
-            if (currentCusPageList != null)
-            System.out.println("currentCusPageList first customer:" + currentCusPageList.get(0).getCustName());
+            ArrayList<Customer> currentCusPageList = new ArrayList<>(filteredCustomers.subList(startIndex, endIndex));
+            
             
                 session.setAttribute("currentCusPageList", currentCusPageList);
                 session.setAttribute("currentPage", page);
