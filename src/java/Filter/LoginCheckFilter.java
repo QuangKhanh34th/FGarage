@@ -115,9 +115,6 @@ public class LoginCheckFilter implements Filter {
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             //only check for login and not creating new session for resource saving
             HttpSession session = httpRequest.getSession(false);
-            SalesPerson sales = (SalesPerson) session.getAttribute("sales");
-            Mechanic mechanic = (Mechanic) session.getAttribute("mechanic");
-            Customer customer = (Customer) session.getAttribute("customer");
             
             //debug console to track web access flow
             String requestURI = httpRequest.getRequestURI();
@@ -133,6 +130,8 @@ public class LoginCheckFilter implements Filter {
             //then continue as normal
             if (requestURI.endsWith("/MainServlet") || 
                     requestURI.contains("/Login") ||
+                    requestURI.contains("SalesDashboard/css/") ||
+                    requestURI.contains("SalesDashboard/js/") ||
                     requestURI.endsWith("/loginCustServlet") || 
                     requestURI.endsWith("/loginMechanicServlet") ||
                     requestURI.endsWith("/loginSalesServlet")) {
@@ -141,7 +140,13 @@ public class LoginCheckFilter implements Filter {
             }
             
             //check for user object in session 
-            boolean user = sales != null || mechanic != null || customer != null;
+            boolean user = false; // Initialize to false
+            if (session != null) {
+                SalesPerson sales = (SalesPerson) session.getAttribute("sales");
+                Mechanic mechanic = (Mechanic) session.getAttribute("mechanic");
+                Customer customer = (Customer) session.getAttribute("customer");
+                user = sales != null || mechanic != null || customer != null;
+            }
             //session not found or user object is not found then redirect to login page
             if (session == null || !user) {
                 System.out.println("[LoginCheckFilter.java] login state is false (logged out), redirecting the user to: " + httpRequest.getContextPath() + "/MainServlet");

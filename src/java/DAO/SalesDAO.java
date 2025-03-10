@@ -8,6 +8,9 @@ package DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import model.Customer;
 import model.SalesPerson;
 import utils.DBUtils;
 
@@ -52,5 +55,47 @@ public class SalesDAO {
             }
         }
         return rs;
+    }
+    
+    public static ArrayList<Customer> getAllCustomer() {
+        ArrayList<Customer> cusList = new ArrayList<>();
+        try {
+            Connection connection = DBUtils.getConnection();
+            
+            if (connection != null) {
+                String sql = "select custID, custName, phone, sex, cusAddress from Customer";
+                //use static statement because no parameter are required
+                Statement st = connection.createStatement();
+                ResultSet result = st.executeQuery(sql);
+                
+                //import result into cusList
+                while (result.next()) {
+                    int id = result.getInt("custID");
+                    String custName = result.getString("custName");
+                    String phone = result.getString("phone");
+                    //init gender for proper displaying
+                    String gender;
+                    String sex = result.getString("sex");
+                    if (sex.contains("F")) {
+                        gender = "Female";
+                    } else if (sex.contains("M")) {
+                        gender = "Male";
+                    } else {
+                        gender = "undefined";
+                    }
+                    String cusAddress = result.getString("cusAddress");
+                    
+                    Customer customer = new Customer(id, custName, phone, gender, cusAddress);
+                    cusList.add(customer);
+                }
+            }
+            
+            //close connection
+            if (connection != null) connection.close();
+        } catch (Exception e) {
+            System.out.println("Unexpected error occured in SalesDAO.getAllSales()");
+        }
+        
+        return cusList;
     }
 }

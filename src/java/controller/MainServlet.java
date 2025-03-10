@@ -86,9 +86,14 @@ public class MainServlet extends HttpServlet {
                         HttpSession session = request.getSession();
                         session.invalidate();
                         url="Login/index.jsp";
+                        break;
                     }
                     
-                    
+                    //CustomerFunction-related action
+                    case "getCustList": {
+                        url="/getAllCustomerServlet";
+                        break;
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();

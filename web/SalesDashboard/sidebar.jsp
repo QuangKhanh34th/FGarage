@@ -34,7 +34,7 @@
                     </a>
                     <ul id="customer-multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                       <li class="sidebar-item">
-                        <a href="CustomerFunction.jsp" class="sidebar-link">
+                        <a href="${pageContext.request.contextPath}/MainServlet?action=getCustList" class="sidebar-link">
                             <i class="bi bi-person"></i>
                             Customers
                         </a>
