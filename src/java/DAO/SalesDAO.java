@@ -57,7 +57,7 @@ public class SalesDAO {
         return rs;
     }
     
-    public static ArrayList<Customer> getAllCustomer() {
+    public static ArrayList<Customer> getAllCustomers() {
         ArrayList<Customer> cusList = new ArrayList<>();
         try {
             Connection connection = DBUtils.getConnection();

@@ -7,6 +7,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Customer"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -35,7 +36,7 @@
                             <div class="col-auto">
                                 <form class="d-flex align-items-center">
                                     <div class="me-2">
-                                        <input type="password" class="form-control" id="customerSearch" placeholder="Customer name">
+                                        <input type="text" class="form-control" id="customerSearch" placeholder="Customer name">
                                     </div>
                                     
                                     <button type="submit" class="btn btn-secondary">Search</button>                          
@@ -62,30 +63,61 @@
                             </thead>
                             <%-- Fetching the attributes from the session
                                  which was previously set by the servlet  
-                                  "getAllCustomerServlet.java" 
+                                  "getCustomerServlet.java" 
                             --%>
-                            <tbody class="table-group-divider"> 
-                            <%
-                                ArrayList<Customer> customerList = (ArrayList<Customer>)session.getAttribute("customerList");
-                                int count=1;
-                                if (customerList == null) {
-                                    request.getRequestDispatcher("/MainServlet?action=getCustList").forward(request, response);
-                                    return;
-                                }
-                                for(Customer customer: customerList)
-                            {%> 
-                            <%-- Arranging data in tabular form 
-                            --%>
-
-                               <tr>
-                                   <td><%=count%></td> 
-                                   <td><a href="#"><%=customer.getCustName()%></a></td> 
-                                   <td><%=customer.getPhone()%></td> 
-                                   <td><%=customer.getCusAddress()%></td> 
-                               </tr> 
-                               <%count++;}%> 
-                            </tbody> 
+                            <tbody class="table-group-divider">
+                                <c:forEach var="customer" items="${sessionScope.currentCusPageList}" varStatus="status"> 
+                                    <tr>
+                                        <td>${(sessionScope.currentPage - 1) * 10 + status.index + 1}</td>
+                                        <td><a href="#">${customer.getCustName()}</a></td>
+                                        <td>${customer.getPhone()}</td>
+                                        <td>${customer.getCusAddress()}</td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
                         </table>
+                        <nav aria-label="Page navigation">
+                            <%--
+                                All page link in pagination section will pass "page" parameter 
+                                for the getCustomerServlet to detect what page the user click on
+                                to properly give "active" class
+                            --%>
+                            <ul class="pagination justify-content-center">
+                                <%--
+                                    if current page is 2 or larger
+                                    then display the "arrow left" link, indicate there is a previous page
+                                    the user can click it to view the previous page (currentPage - 1)
+                                --%>
+                                <c:if test="${sessionScope.currentPage > 1}">
+                                    <li class="page-item">
+                                        <a class="page-link" href="${pageContext.request.contextPath}/GetCustomerServlet?page=${currentPage - 1}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                </c:if>
+                                <%--
+                                    Add a new <li class="page-item"> using a for-loop until index "i"
+                                    reached the totalPages (calculated by servlet)
+                                    If the added <li> is the current page, give it "active" class to show we are at that page
+                                --%>
+                                <c:forEach var="i" begin="1" end="${sessionScope.totalPages}">
+                                    <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                        <a class="page-link" href="${pageContext.request.contextPath}/GetCustomerServlet?page=${i}">${i}</a>
+                                    </li>
+                                </c:forEach>
+                                <%--
+                                    same as "arrow left" link, this time is for the "arrow right"
+                                    indicate there is a next page available
+                                --%>
+                                <c:if test="${sessionScope.currentPage < sessionScope.totalPages}">
+                                    <li class="page-item">
+                                        <a class="page-link" href="${pageContext.request.contextPath}/GetCustomerServlet?page=${currentPage + 1}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </c:if>
+                            </ul>
+                        </nav>
                     </div>
                     
                 </div>

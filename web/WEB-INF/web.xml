@@ -29,8 +29,8 @@
         <servlet-class>controller.PartServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>getAllCustomerServlet</servlet-name>
-        <servlet-class>controller.getAllCustomerServlet</servlet-class>
+        <servlet-name>GetCustomerServlet</servlet-name>
+        <servlet-class>controller.GetCustomerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
@@ -53,8 +53,8 @@
         <url-pattern>/SalesDashboard/PartServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>getAllCustomerServlet</servlet-name>
-        <url-pattern>/getAllCustomerServlet</url-pattern>
+        <servlet-name>GetCustomerServlet</servlet-name>
+        <url-pattern>/GetCustomerServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

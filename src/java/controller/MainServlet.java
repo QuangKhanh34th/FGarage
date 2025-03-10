@@ -91,7 +91,7 @@ public class MainServlet extends HttpServlet {
                     
                     //CustomerFunction-related action
                     case "getCustList": {
-                        url="/getAllCustomerServlet";
+                        url="/GetCustomerServlet";
                         break;
                     }
                 }
