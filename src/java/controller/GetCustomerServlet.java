@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Customer;
+import Service.CustomerService;
 
 /**
  *
@@ -35,92 +36,53 @@ public class GetCustomerServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             //Initializing variables
             HttpSession session = request.getSession();
+            CustomerService customerService = new CustomerService();
+            String searchTerm = request.getParameter("searchName");
             ArrayList<Customer> allCustomers = (ArrayList<Customer>) session.getAttribute("customerList");
             
-            // If customerList is null, get it from database
+            // Get the base customer list, from the database if needed.
+            ArrayList<Customer> customers;
             if (allCustomers == null) {
-                //remove comment to use dummy data.
-                //ArrayList<Customer> allCustomers = createDummyCustomerList();
-                allCustomers = SalesDAO.getAllCustomers();
-                session.setAttribute("customerList", allCustomers);
+                customers = customerService.getCustomers();
+                session.setAttribute("customerList", customers);
+            } else {
+                customers = allCustomers;
             }
-            
-            // Search functionality
-            String searchTerm = request.getParameter("searchName");
-            ArrayList<Customer> filteredCustomers = allCustomers; // Initialize with all customers
 
-            if (searchTerm != null && !searchTerm.trim().isEmpty()) {
-                filteredCustomers = new ArrayList<>();
-                for (Customer customer : allCustomers) {
-                    if (customer.getCustName().toLowerCase().contains(searchTerm.toLowerCase())) {
-                        filteredCustomers.add(customer);
-                    }
-                }
-            }
+            // Apply the search filter.
+            customers = customerService.getCustomers(searchTerm, customers);
+
+            
             
             /*
                 Result Pagination
                 store all customer data in session but don't use it to show
                 instead break the data into multiple pages then pass it to request for viewing
             */
-            int page = 1; // Default to page 1
-            int recordsPerPage = 10; // Number of rows per page
+            int page = 1; //Default to page 1
+            int recordsPerPage = 10; //Number of rows per page
+            
             
             //if "page" get passed from JSP, instead of page 1, we change the page to current page
             if (request.getParameter("page") != null) {
                 page = Integer.parseInt(request.getParameter("page"));
             }
             
-            int totalCustomers = filteredCustomers.size();
-            /*
-                Calculating the total number of pages needed to display all records
-                Initial formula: totalCustomers / recordsPerPage
-                    Type cast the formula to use "double" value for precise calculation
-                    wrap the formula in math.ceil() to round the number to nearest integer (ex: 3.5 -> 4)
-                    Type cast the result back to integer value
-            */
-            int totalPages = (int) Math.ceil((double) totalCustomers / recordsPerPage);
             
-            /*  
-                Calculating start and end index to divide the list into sublist for display
-                Example (startIndex):
-                If page = 1 and recordsPerPage = 10, then startIndex = (1 - 1) * 10 = 0. (The first record)
-                If page = 2 and recordsPerPage = 10, then startIndex = (2 - 1) * 10 = 10. (The 11th record)
-            */
-            int startIndex = (page - 1) * recordsPerPage;
-            
-            /*
-                using Math.min() to ensure the last page doesn't exceed the total number of customer
-                Example:
-                If startIndex = 30, recordsPerPage = 10, totalCustomers = 35
-                Then endIndex = Math.min(30 + 10, 35) = 35
-            */
-            int endIndex = Math.min(startIndex + recordsPerPage, totalCustomers);
-            
-            //using calculated data(start, end, totalPage) to break customer data into the data of the current page number
-            ArrayList<Customer> currentCusPageList = new ArrayList<>(filteredCustomers.subList(startIndex, endIndex));
+            ArrayList<Customer> currentCusPageList = customerService.getPaginatedCustomers(customers, page, recordsPerPage);
+            int totalPages = customerService.getTotalPages(customers, recordsPerPage);
             
             
-                session.setAttribute("currentCusPageList", currentCusPageList);
-                session.setAttribute("currentPage", page);
-                session.setAttribute("totalPages", totalPages);
-                response.sendRedirect("SalesDashboard/CustomerFunction.jsp");
+            session.setAttribute("currentCusPageList", currentCusPageList);
+            session.setAttribute("currentPage", page);
+            session.setAttribute("totalPages", totalPages);
+            
+            
+            response.sendRedirect("SalesDashboard/CustomerFunction.jsp");
             
         }
     }
-    
-    private ArrayList<Customer> createDummyCustomerList() {
-        ArrayList<Customer> list = new ArrayList<>();
-        for (int i = 0; i < 35; i++) {
-            Customer c = new Customer();
-            c.setCustID(i);
-            c.setCustName("customer " + i);
-            c.setPhone("123-456-" + i);
-            c.setCusAddress("address " + i);
-            list.add(c);
-        }
-        return list;
-    }
+   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
