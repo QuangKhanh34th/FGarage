@@ -94,6 +94,16 @@ public class MainServlet extends HttpServlet {
                         url="/GetCustomerServlet";
                         break;
                     }
+                    
+                    case "custSearch": {
+                        url="/GetCustomerServlet";
+                        break;
+                    }
+                    
+                    case "custAdd": {
+                        url="/AddCustomerServlet";
+                        break;
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();

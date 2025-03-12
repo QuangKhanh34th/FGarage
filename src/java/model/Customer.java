@@ -28,6 +28,15 @@ public class Customer implements Serializable {
         this.cusAddress = cusAddress;
     }
 
+    public Customer(String custName, String phone, String sex, String cusAddress) {
+        this.custName = custName;
+        this.phone = phone;
+        this.sex = sex;
+        this.cusAddress = cusAddress;
+    }
+    
+    
+
     public int getCustID() {
         return custID;
     }

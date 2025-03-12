@@ -6,9 +6,10 @@
 
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Customer"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
+<meta charset="UTF-8">
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -28,14 +29,45 @@
                     <h1 class="mt-2">
                         Customer Management
                     </h1>
+                    
+                    <%-- State Banner --%>
+                    <%--check for CRUD state before displaying the banner--%>
+                    <c:if test="${not empty sessionScope.error}">
+                        <div id="stateBanner"
+                             class="alert alert-danger"
+                             role="alert"
+                             style="margin: 10px auto; /* Increased top/bottom margin */
+                                    padding: 15px 20px; /* Increased vertical padding */
+                                    font-size: 1em; /* Default font size */
+                                    width: 100%; /* Increased width */
+                                    text-align: left; /* Left-align the  text */
+                                    border-radius: 5px; /* Optional: Rounded corners for a softer look */">
+                            ${sessionScope.error}
+                        </div>
+                    </c:if>
+                    <c:if test="${not empty sessionScope.dbCreate}">
+                        <div id="stateBanner"
+                             class="alert alert-success"
+                             role="alert"
+                             style="margin: 10px auto; /* Increased top/bottom margin */
+                                    padding: 15px 20px; /* Increased vertical padding */
+                                    font-size: 1em; /* Default font size */
+                                    width: 100%; /* Increased width */
+                                    text-align: left; /* Left-align the  text */
+                                    border-radius: 5px; /* Optional: Rounded corners for a softer look */">
+                            ${sessionScope.dbCreate}
+                        </div>
+                    </c:if>
+                    
                     <%--Manage Customer container--%>
                     <div class="mt-4">
                         <%--Search and add function--%>
                         <div class="row gy-2 gx-3 mb-2 align-items-center d-flex justify-content-between">
                             <%--search bar for the below table--%>
                             <div class="col-auto">
-                                <form action="${pageContext.request.contextPath}/GetCustomerServlet" class="d-flex align-items-center">
+                                <form action="${pageContext.request.contextPath}/MainServlet" class="d-flex align-items-center">
                                     <div class="me-2">
+                                        <input type="hidden" name="action" value="custSearch">
                                         <input name="searchName" type="text" class="form-control" id="customerSearch" placeholder="Customer name">
                                     </div>
                                     
@@ -56,15 +88,16 @@
                                                 <h5 class="modal-title" id="addCustomerModalLabel">Add New Customer</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <form>
+                                            <form action="${pageContext.request.contextPath}/MainServlet" method="post" accept-charset="UTF-8">
                                                 <div class="modal-body">
                                                         <div class="row">
                                                             <div class="col-md-9 mb-3">
-                                                                <input type="text" class="form-control" id="custName" name="custNameAdd" placeholder="Customer Name">
+                                                                <input type="hidden" name="action" value="custAdd">
+                                                                <input type="text" class="form-control" id="custName" name="custNameAdd" placeholder="Customer Name" required>
                                                             </div>
                                                             <div class="col-md-3 mb-3">
-                                                                <select class="form-select" id="custSexAdd" name="custSexAdd">
-                                                                    <option value="" selected>Gender</option>
+                                                                <select class="form-select" id="custSexAdd" name="custSexAdd" required>
+                                                                    <option value="" disabled selected>Gender</option>
                                                                     <option value="M">Male</option>
                                                                     <option value="F">Female</option>
                                                                 </select>
@@ -72,16 +105,16 @@
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="custPhone" class="form-label">Phone Number</label>
-                                                            <input type="text" class="form-control" id="custPhone">
+                                                            <input type="number" class="form-control" id="custPhone" name="custPhoneAdd" required max="99999999999999">
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="custAddress" class="form-label">Address</label>
-                                                            <input type="text" class="form-control" id="custAddress">
+                                                            <input type="text" class="form-control" id="custAddress" name="custAddressAdd" required>
                                                         </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                    <button type="submit" class="btn btn-primary">Add to database</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -163,5 +196,18 @@
                 
             </div>
         </div>
+                                
+        <script>
+            window.onload = function() {
+                var errorBanner = document.getElementById('stateBanner');
+                if (errorBanner) {
+                    setTimeout(function() {
+                        errorBanner.style.display = 'none';
+                        <% session.removeAttribute("error");%>
+                        <% session.removeAttribute("dbCreate");%>
+                    }, 5000); // Hide after 5 seconds (5000 milliseconds)
+                }
+            };
+        </script>
     </body>
 </html>

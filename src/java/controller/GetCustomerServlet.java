@@ -34,8 +34,20 @@ public class GetCustomerServlet extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            //Initializing variables
+            //Re-fetching customer list info from database if a change in database is found
+            boolean dbUpdate = false;
             HttpSession session = request.getSession();
+            try {
+                 dbUpdate = (boolean) request.getAttribute("dbUpdate");
+            } catch (NullPointerException e) {
+                System.out.println("dbUpdate not found");
+            }
+            if (dbUpdate) {
+                session.removeAttribute("customerList");
+            }
+            
+            
+            //Initializing variables
             CustomerService customerService = new CustomerService();
             String searchTerm = request.getParameter("searchName");
             ArrayList<Customer> allCustomers = (ArrayList<Customer>) session.getAttribute("customerList");

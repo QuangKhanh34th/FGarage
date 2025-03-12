@@ -83,5 +83,27 @@ public class CustomerService {
         */
         return (int) Math.ceil((double) totalCustomers / recordsPerPage);
     }
+    
+    public boolean addCustomer(Customer target) {
+        CustomerDAO customerDAO = new CustomerDAO();
+        
+            
 
+            // Check 2: Check for name duplicate (after trimming)
+            String trimmedName = trimString(target.getCustName());
+            if (customerDAO.customerExists(trimmedName,target.getPhone())) {
+                System.out.println("[CustomerService.java] Name or phone is identical with data in db");
+                return false;
+            }
+
+            // Add the customer
+            int result = CustomerDAO.addCustomer(target);
+            return result != 0;
+        
+    }
+    
+    public String trimString(String target) {
+        return target.replaceAll("\\s+", "");
+    }
+    
 }
