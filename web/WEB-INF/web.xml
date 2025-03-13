@@ -36,6 +36,10 @@
         <servlet-name>AddCustomerServlet</servlet-name>
         <servlet-class>controller.AddCustomerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CustomerDetailsServlet</servlet-name>
+        <servlet-class>controller.CustomerDetailsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
         <url-pattern>/MainServlet</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>AddCustomerServlet</servlet-name>
         <url-pattern>/AddCustomerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerDetailsServlet</servlet-name>
+        <url-pattern>/CustomerDetailsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

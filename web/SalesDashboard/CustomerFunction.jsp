@@ -141,7 +141,8 @@
                                 <c:forEach var="customer" items="${sessionScope.currentCusPageList}" varStatus="status"> 
                                     <tr>
                                         <td>${(sessionScope.currentPage - 1) * 10 + status.index + 1}</td>
-                                        <td><a href="#">${customer.getCustName()}</a></td>
+                                        <%--Pass custID and action to MainServlet to redirect to appropriate servlet--%>
+                                        <td><a href="${pageContext.request.contextPath}/MainServlet?action=custView&custId=${customer.getCustID()}">${customer.getCustName()}</a></td>
                                         <td>${customer.getPhone()}</td>
                                         <td>${customer.getCusAddress()}</td>
                                     </tr>

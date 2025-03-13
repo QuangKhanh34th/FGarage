@@ -37,6 +37,17 @@ public class CustomerService {
         return allCustomers;
     }
     
+    public Customer getCustomerById(int custID) {
+        ArrayList<Customer> searchList = getCustomers();
+        Customer result=null;
+        for (Customer customer : searchList) {
+            if (customer.getCustID()==custID) {
+                result= customer;
+            }
+        }
+        return result;
+    }
+    
     //use the passed customers list, current page and number of row per page to break it into multiple sublists
     //used for passing to the view 
     public ArrayList<Customer> getPaginatedCustomers(ArrayList<Customer> customers, int page, int recordsPerPage) {
