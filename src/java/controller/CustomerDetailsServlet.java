@@ -36,7 +36,7 @@ public class CustomerDetailsServlet extends HttpServlet {
             CustomerService customerService = new CustomerService();
             HttpSession session = request.getSession();
             
-            Customer customer = customerService.getCustomerById(targetID);
+            Customer customer = customerService.getCustomerById(targetID, session);
             
             if (customer != null) {
                 session.setAttribute("customer", customer);

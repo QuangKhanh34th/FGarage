@@ -37,9 +37,16 @@ public class CustomerService {
         return allCustomers;
     }
     
-    public Customer getCustomerById(int custID) {
-        ArrayList<Customer> searchList = getCustomers();
+    //return the customer based on ID
+    public Customer getCustomerById(int custID, HttpSession session) {
+        /*
+            Get the fetched list first
+            If for some reasons the list didnt exist yet, get it from the database
+        */
+        ArrayList<Customer> searchList = (ArrayList<Customer>) session.getAttribute("customerList");
+        if (searchList==null) searchList = getCustomers();
         Customer result=null;
+        
         for (Customer customer : searchList) {
             if (customer.getCustID()==custID) {
                 result= customer;
