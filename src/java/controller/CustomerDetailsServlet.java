@@ -39,7 +39,7 @@ public class CustomerDetailsServlet extends HttpServlet {
             Customer customer = customerService.getCustomerById(targetID, session);
             
             if (customer != null) {
-                session.setAttribute("customer", customer);
+                session.setAttribute("custInfo", customer);
                 response.sendRedirect("SalesDashboard/CustomerDetails.jsp");
             } else {
                 System.out.println("[CustomerDetailsServlet.java] Error fetching customer: customer not found");

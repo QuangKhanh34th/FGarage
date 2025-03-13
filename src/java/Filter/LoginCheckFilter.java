@@ -29,7 +29,11 @@ import model.SalesPerson;
 public class LoginCheckFilter implements Filter {
     
     private static final boolean debug = true;
-
+    
+    // Define URL patterns for different roles
+    private static final String SALES_URL_PATTERN = "/SalesDashboard/";
+    private static final String MECHANIC_URL_PATTERN = "/MechanicDashboard/";
+    private static final String CUSTOMER_URL_PATTERN = "/CustomerDashboard/";
     // The filter configuration object we are associated with.  If
     // this value is null, this filter instance is not currently
     // configured. 
@@ -151,11 +155,42 @@ public class LoginCheckFilter implements Filter {
             }
             //session not found or user object is not found then redirect to login page
             if (session == null || !user) {
-                System.out.println("[LoginCheckFilter.java] login state is false (logged out), redirecting the user to: " + httpRequest.getContextPath() + "/MainServlet");
+                System.out.println("[LoginCheckFilter.java] login state is false (logged out),"
+                        + " redirecting the user to: " + httpRequest.getContextPath() + "/MainServlet");
                 httpResponse.sendRedirect(httpRequest.getContextPath() + "/MainServlet");
-            } else {
-                chain.doFilter(request, response);
             }
+            
+            // Role-based access control
+            /*
+                If the user access pages directly through url, check for url pattern and associated user object
+            */
+            if (requestURI.contains(SALES_URL_PATTERN)) {
+                if (session.getAttribute("sales") == null) {
+                    System.out.println("[LoginCheckFilter.java] Unauthorized access to Sales's functions,"
+                            + " redirecting the user to: " + httpRequest.getContextPath() + "/MainServlet");
+                    session.setAttribute("error", "Unauthorized access found, please log in to proceed");
+                    httpResponse.sendRedirect(httpRequest.getContextPath() + "/MainServlet");
+                    return;
+                }
+            } else if (requestURI.contains(MECHANIC_URL_PATTERN)) {
+                if (session.getAttribute("mechanic") == null) {
+                    System.out.println("[LoginCheckFilter.java] Unauthorized");
+                    System.out.println("[LoginCheckFilter.java] Unauthorized access to Mechanic's functions,"
+                            + " redirecting the user to: " + httpRequest.getContextPath() + "/MainServlet");
+                    httpResponse.sendRedirect(httpRequest.getContextPath() + "/MainServlet");
+                    return;
+                }
+            } else if (requestURI.contains(CUSTOMER_URL_PATTERN)) {
+                if (session.getAttribute("customer") == null) {
+                    System.out.println("[LoginCheckFilter.java] Unauthorized access to Customer's functions,"
+                            + " redirecting the user to: " + httpRequest.getContextPath() + "/MainServlet");
+                    session.setAttribute("error", "Unauthorized access found, please log in to proceed");
+                    httpResponse.sendRedirect(httpRequest.getContextPath() + "/MainServlet");
+                    return;
+                }
+            }
+            
+            chain.doFilter(request, response);
             
             
         } catch (Throwable t) {
