@@ -113,6 +113,10 @@ public class MainServlet extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
+                //Perform system state integrity check before proceeding.
+                if ("validateState".equals(action)) url="Login/systemState.jsp";
+                // Render auxiliary view for specific user action.
+                if("renderView".equals(action)) url="Login/renderView.jsp";
                 System.out.println("[MainServlet.java] assigned url: " + url);
                 request.getRequestDispatcher(url).forward(request, response);
             }

@@ -90,7 +90,7 @@ public class GetCustomerServlet extends HttpServlet {
             session.setAttribute("totalPages", totalPages);
             
             
-            response.sendRedirect("SalesDashboard/CustomerFunction.jsp");
+            response.sendRedirect(request.getContextPath() + "/SalesDashboard/CustomerFunction.jsp");
             
         }
     }

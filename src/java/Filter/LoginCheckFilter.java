@@ -177,6 +177,7 @@ public class LoginCheckFilter implements Filter {
                     System.out.println("[LoginCheckFilter.java] Unauthorized");
                     System.out.println("[LoginCheckFilter.java] Unauthorized access to Mechanic's functions,"
                             + " redirecting the user to: " + httpRequest.getContextPath() + "/MainServlet");
+                    session.setAttribute("error", "Unauthorized access found, please log in to proceed");
                     httpResponse.sendRedirect(httpRequest.getContextPath() + "/MainServlet");
                     return;
                 }

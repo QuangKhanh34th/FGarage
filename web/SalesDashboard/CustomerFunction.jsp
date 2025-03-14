@@ -8,6 +8,16 @@
 <%@page import="model.Customer"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%
+    // Check if the customer data has been loaded
+    if (session.getAttribute("currentCusPageList") == null) {
+        // If not, forward the request to the GetCustomerServlet
+        request.getRequestDispatcher("/MainServlet?action=getCustList").forward(request, response);
+        return; // Important: Prevent further processing of the JSP
+    }
+%>
+
 <!DOCTYPE html>
 <meta charset="UTF-8">
 <html>
