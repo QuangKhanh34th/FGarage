@@ -86,13 +86,47 @@ public class MainServlet extends HttpServlet {
                         HttpSession session = request.getSession();
                         session.invalidate();
                         url="Login/index.jsp";
+                        break;
                     }
                     
+                    //CustomerFunction-related action
+                    case "getCustList": {
+                        url="/GetCustomerServlet";
+                        break;
+                    }
                     
+                    case "custSearch": {
+                        url="/GetCustomerServlet";
+                        break;
+                    }
+                    
+                    case "custAdd": {
+                        url="/AddCustomerServlet";
+                        break;
+                    }
+                    
+                    case "custView": {
+                        url="/CustomerDetailsServlet";
+                        break;
+                    }
+                    
+                    case "custDel": {
+                        url="/DeleteCustomerServlet";
+                        break;
+                    }
+                    
+                    case "custEdit": {
+                        url="/EditCustomerServlet";
+                        break;
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
+                //Perform system state integrity check before proceeding.
+                if ("validateState".equals(action)) url="Login/systemState.jsp";
+                // Render auxiliary view for specific user action.
+                if("renderView".equals(action)) url="Login/renderView.jsp";
                 System.out.println("[MainServlet.java] assigned url: " + url);
                 request.getRequestDispatcher(url).forward(request, response);
             }

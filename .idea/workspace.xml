@@ -4,15 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1afd1586-6497-49de-996b-8b34a3aa338c" name="Changes" comment="" />
+    <list default="true" id="1afd1586-6497-49de-996b-8b34a3aa338c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/java/DAO/CustomerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/DAO/CustomerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/Service/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/Service/CustomerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/controller/AddCustomerServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/controller/AddCustomerServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/java/controller/MainServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/java/controller/MainServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/SalesDashboard/CustomerDetails.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/SalesDashboard/CustomerDetails.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/SalesDashboard/CustomerFunction.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/SalesDashboard/CustomerFunction.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2tq0XrE7w7gDfUEfflukuv0VcW3" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -21,6 +32,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "test",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/FPT Education/Semester 4/PRJ301/codes/Assignment/PRJ301Assignment"
   }
