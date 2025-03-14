@@ -29,11 +29,7 @@ import model.SalesPerson;
 public class LoginCheckFilter implements Filter {
     
     private static final boolean debug = true;
-    
-    // Define URL patterns for different roles
-    private static final String SALES_URL_PATTERN = "/SalesDashboard/";
-    private static final String MECHANIC_URL_PATTERN = "/MechanicDashboard/";
-    private static final String CUSTOMER_URL_PATTERN = "/CustomerDashboard/";
+
     // The filter configuration object we are associated with.  If
     // this value is null, this filter instance is not currently
     // configured. 
@@ -107,8 +103,6 @@ public class LoginCheckFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
         if (debug) {
             log("LoginCheckFilter:doFilter()");
         }
@@ -155,9 +149,10 @@ public class LoginCheckFilter implements Filter {
             }
             //session not found or user object is not found then redirect to login page
             if (session == null || !user) {
-                System.out.println("[LoginCheckFilter.java] login state is false (logged out),"
-                        + " redirecting the user to: " + httpRequest.getContextPath() + "/MainServlet");
+                System.out.println("[LoginCheckFilter.java] login state is false (logged out), redirecting the user to: " + httpRequest.getContextPath() + "/MainServlet");
                 httpResponse.sendRedirect(httpRequest.getContextPath() + "/MainServlet");
+            } else {
+                chain.doFilter(request, response);
             }
             
             // Role-based access control
