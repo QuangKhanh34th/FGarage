@@ -29,7 +29,11 @@ import model.SalesPerson;
 public class LoginCheckFilter implements Filter {
     
     private static final boolean debug = true;
-
+    
+    // Define URL patterns for different roles
+    private static final String SALES_URL_PATTERN = "/SalesDashboard/";
+    private static final String MECHANIC_URL_PATTERN = "/MechanicDashboard/";
+    private static final String CUSTOMER_URL_PATTERN = "/CustomerDashboard/";
     // The filter configuration object we are associated with.  If
     // this value is null, this filter instance is not currently
     // configured. 
