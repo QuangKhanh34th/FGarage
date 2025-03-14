@@ -38,10 +38,13 @@ public class GetCustomerServlet extends HttpServlet {
             boolean dbUpdate = false;
             HttpSession session = request.getSession();
             try {
+                //get dbUpdate attribute set by other Servlets
+                //if is set, the returned value should always be true
                  dbUpdate = (boolean) request.getAttribute("dbUpdate");
             } catch (NullPointerException e) {
                 System.out.println("dbUpdate not found");
             }
+            
             if (dbUpdate) {
                 session.removeAttribute("customerList");
             }
@@ -52,7 +55,7 @@ public class GetCustomerServlet extends HttpServlet {
             String searchTerm = request.getParameter("searchName");
             ArrayList<Customer> allCustomers = (ArrayList<Customer>) session.getAttribute("customerList");
             
-            // Get the base customer list, from the database if needed.
+            // Get the base customer list from the database if needed (mostly in the case of initial load or dbUpdate is found)
             ArrayList<Customer> customers;
             if (allCustomers == null) {
                 customers = customerService.getCustomers();

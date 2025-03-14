@@ -51,7 +51,7 @@
                                     font-size: 1em; /* Default font size */
                                     width: 100%; /* Increased width */
                                     text-align: left; /* Left-align the  text */
-                                    border-radius: 5px; /* Optional: Rounded corners for a softer look */">
+                                    border-radius: 5px; /* Rounded corners for a softer look */">
                             ${sessionScope.error}
                         </div>
                     </c:if>
@@ -59,13 +59,26 @@
                         <div id="stateBanner"
                              class="alert alert-success"
                              role="alert"
-                             style="margin: 10px auto; /* Increased top/bottom margin */
-                                    padding: 15px 20px; /* Increased vertical padding */
-                                    font-size: 1em; /* Default font size */
-                                    width: 100%; /* Increased width */
-                                    text-align: left; /* Left-align the  text */
-                                    border-radius: 5px; /* Optional: Rounded corners for a softer look */">
+                             style="margin: 10px auto;
+                                    padding: 15px 20px;
+                                    font-size: 1em;
+                                    width: 100%;
+                                    text-align: left;
+                                    border-radius: 5px;">
                             ${sessionScope.dbCreate}
+                        </div>
+                    </c:if>
+                    <c:if test="${not empty sessionScope.dbDelete}">
+                        <div id="stateBanner"
+                             class="alert alert-success"
+                             role="alert"
+                             style="margin: 10px auto;
+                                    padding: 15px 20px;
+                                    font-size: 1em;
+                                    width: 100%;
+                                    text-align: left;
+                                    border-radius: 5px;">
+                            ${sessionScope.dbDelete}
                         </div>
                     </c:if>
                     
@@ -152,7 +165,11 @@
                                     <tr>
                                         <td>${(sessionScope.currentPage - 1) * 10 + status.index + 1}</td>
                                         <%--Pass custID and action to MainServlet to redirect to appropriate servlet--%>
-                                        <td><a href="${pageContext.request.contextPath}/MainServlet?action=custView&custId=${customer.getCustID()}">${customer.getCustName()}</a></td>
+                                        <td>
+                                            <a href="${pageContext.request.contextPath}/MainServlet?action=custView&custId=${customer.getCustID()}">
+                                                ${customer.getCustName()}
+                                            </a>
+                                        </td>
                                         <td>${customer.getPhone()}</td>
                                         <td>${customer.getCusAddress()}</td>
                                     </tr>
@@ -210,12 +227,13 @@
                                 
         <script>
             window.onload = function() {
-                var errorBanner = document.getElementById('stateBanner');
-                if (errorBanner) {
+                var stateBanner = document.getElementById('stateBanner');
+                if (stateBanner) {
                     setTimeout(function() {
-                        errorBanner.style.display = 'none';
+                        stateBanner.style.display = 'none';
                         <% session.removeAttribute("error");%>
                         <% session.removeAttribute("dbCreate");%>
+                        <% session.removeAttribute("dbDelete");%>    
                     }, 5000); // Hide after 5 seconds (5000 milliseconds)
                 }
             };

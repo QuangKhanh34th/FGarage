@@ -13,13 +13,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Customer;
 
 /**
  *
  * @author ASUS
  */
-public class AddCustomerServlet extends HttpServlet {
+public class DeleteCustomerServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -30,28 +29,23 @@ public class AddCustomerServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-
-        String custName = request.getParameter("custNameAdd");
-        System.out.println("custName:" + custName);
-        String custSex = request.getParameter("custSexAdd");
-        String custPhone = request.getParameter("custPhoneAdd");
-        String custAddress = request.getParameter("custAddressAdd");
-
+        int targetID = Integer.parseInt(request.getParameter("custId"));
+        CustomerService cs = new CustomerService();
         HttpSession session = request.getSession();
-        CustomerService customerService = new CustomerService();
-        boolean addStatus = customerService.addCustomer(new Customer(custName, custPhone, custSex, custAddress));
-
-        //If add successfully, go to GetCustomerServlet to refresh the data for viewing
-        //Else add an error message to session for the jsp to display
-        if(!addStatus) {
-            session.setAttribute("error", "Error adding Customer: Customer's Name or phone has already exists in database");
-            request.getRequestDispatcher("/GetCustomerServlet").forward(request, response);
+        
+        boolean deleteStatus = cs.deleteCustomer(targetID);
+        
+        if (!deleteStatus) {
+            //edge case handling
+            session.removeAttribute("custInfo");
+            session.setAttribute("error", "Error removing Customer: Couldn't fetch necessary data");
+            response.sendRedirect("SalesDashboard/CustomerFunction.jsp");    
         } else {
-            session.setAttribute("dbCreate", "Customer data added successfully");
-            request.setAttribute("dbUpdate", addStatus);
+            session.setAttribute("dbDelete", "Customer data deleted successfully");
+            //also edge case handling
+            session.removeAttribute("custInfo");
+            request.setAttribute("dbUpdate", deleteStatus);
             request.getRequestDispatcher("/GetCustomerServlet").forward(request, response);
         }
     } 
@@ -79,7 +73,7 @@ public class AddCustomerServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {  
+    throws ServletException, IOException {
         processRequest(request, response);
     }
 

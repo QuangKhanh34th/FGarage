@@ -58,45 +58,7 @@ public class CustomerDAO {
         return rs;
     }
     
-    public Customer findCustomer(String name, String phone){
-        Customer rs=null;
-        Connection cn=null;
-        
-        try{
-          cn=DBUtils.getConnection();
-          if(cn!=null){
-              String sql = "select custID,custName,phone,sex,cusAddress\n"
-                      + "from dbo.Customer\n"
-                      + "where custName = ? and phone = ?";
-              PreparedStatement st=cn.prepareStatement(sql);
-              st.setString(1, name);
-              st.setString(2, phone);
-              ResultSet table=st.executeQuery();
-                if(table!=null){
-                  while(table.next()){
-                      int custID = table.getInt("custID");
-                      String custName = table.getString("custName");
-                      String cusPhone = table.getString("phone");
-                      String sex = table.getString("sex");
-                      String cusAddress = table.getString("cusAddress");
-                      
-                      rs=new Customer(custID, custName, cusPhone, sex, cusAddress);
-                      
-                  }
-              }
-          }
-        
-        }catch(Exception e){
-            e.printStackTrace();
-        }finally{
-            try {
-                if(cn!=null) cn.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return rs;
-    }
+    
     
     public static ArrayList<Customer> getAllCustomers() {
         ArrayList<Customer> cusList = new ArrayList<>();
@@ -173,6 +135,36 @@ public class CustomerDAO {
         return result;
     }
     
+    public static int deleteCustomer(int targetID) {
+        int result = 0;
+        Connection cn = null;
+        
+        try {
+            cn=DBUtils.getConnection();
+            if (cn!=null) {
+                String sql = "DELETE FROM Customer WHERE custID = " + targetID;
+                Statement statement = cn.createStatement();
+                result = statement.executeUpdate(sql);
+                statement.close();
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("[CustomerDAO.java] error removing Customer");
+        } finally {
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return result;
+    }
+    
+    //function to check for existing customer name (trimmed) or phone
+    //return true if name or phone is duplicate
     public boolean customerExists(String custName, String phone) {
         Connection cn = null;
         boolean exists = false;

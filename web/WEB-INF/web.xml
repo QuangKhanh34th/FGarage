@@ -40,6 +40,14 @@
         <servlet-name>CustomerDetailsServlet</servlet-name>
         <servlet-class>controller.CustomerDetailsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GeneralEdgeCaseHandler</servlet-name>
+        <servlet-class>controller.GeneralEdgeCaseHandler</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCustomerServlet</servlet-name>
+        <servlet-class>controller.DeleteCustomerServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
         <url-pattern>/MainServlet</url-pattern>
@@ -71,6 +79,14 @@
     <servlet-mapping>
         <servlet-name>CustomerDetailsServlet</servlet-name>
         <url-pattern>/CustomerDetailsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GeneralEdgeCaseHandler</servlet-name>
+        <url-pattern>/GeneralEdgeCaseHandler</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCustomerServlet</servlet-name>
+        <url-pattern>/DeleteCustomerServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
