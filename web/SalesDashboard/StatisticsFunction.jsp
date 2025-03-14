@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Sales Dashboard</title>
-        <link rel="stylesheet" href="style">
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <%--Header--%>
@@ -132,6 +132,7 @@
                         }
                     %>
                 </table>
-
+            </div>
+        </div>
                 </body>
                 </html>
