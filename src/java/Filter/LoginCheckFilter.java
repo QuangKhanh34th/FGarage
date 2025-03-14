@@ -154,6 +154,7 @@ public class LoginCheckFilter implements Filter {
             } else {
                 chain.doFilter(request, response);
             }
+            CharSequence CUSTOMER_URL_PATTERN = null;
             
             // Role-based access control
             /*
