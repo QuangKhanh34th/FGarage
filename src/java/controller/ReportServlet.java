@@ -26,7 +26,7 @@ public class ReportServlet extends HttpServlet {
         ReportDAO reportDAO = new ReportDAO();
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
-
+        System.out.println("Report Servlet invoked");
         try {
             // Lấy thống kê số lượng xe bán theo năm
             Map<Integer, Integer> carsSoldByYear = reportDAO.getCarsSoldByYear();
@@ -52,11 +52,11 @@ public class ReportServlet extends HttpServlet {
             System.out.println("topMechanics: " + topMechanics);
 
             // Chuyển dữ liệu đến trang JSP hiển thị
-            request.getRequestDispatcher("report.jsp").forward(request, response);
+            request.getRequestDispatcher("SalesDashboard/StatisticsFunction.jsp").forward(request, response);
         } catch (Exception ex) {
             ex.printStackTrace();
             request.setAttribute("errorMessage", "Có lỗi xảy ra khi lấy dữ liệu báo cáo.");
-            request.getRequestDispatcher("report.jsp").forward(request, response);
+            request.getRequestDispatcher("SalesDashboard/StatisticsFunction.jsp").forward(request, response);
 
         }
     }
