@@ -104,22 +104,28 @@ public class CustomerService {
     
     public boolean addCustomer(Customer target) {
         CustomerDAO customerDAO = new CustomerDAO();
-            // Check for name or phone duplicate (after trimming)
-            String trimmedName = trimString(target.getCustName());
-            if (customerDAO.customerExists(trimmedName,target.getPhone())) {
-                System.out.println("[CustomerService.java] Name or phone is identical with data in db");
-                return false;
-            }
+        // Check for name or phone duplicate (after trimming)
+        String trimmedName = trimString(target.getCustName());
+        if (customerDAO.customerExists(trimmedName,target.getPhone())) {
+            System.out.println("[CustomerService.java] Name or phone is identical with data in db");
+            return false;
+        }
 
-            // Add the customer
-            int result = CustomerDAO.addCustomer(target);
-            return result != 0;
+        // Add the customer
+        int result = CustomerDAO.addCustomer(target);
+        return result != 0;
         
     }
     
     public boolean deleteCustomer(int targetID) {
         int result = CustomerDAO.deleteCustomer(targetID);
         return result !=0;
+    }
+    
+    //pass the session for getting the saved customerList
+    public boolean updateCustomer(Customer target) {  
+        int result = CustomerDAO.updateCustomer(target);
+        return result != 0;
     }
     
     public String trimString(String target) {

@@ -81,6 +81,19 @@
                             ${sessionScope.dbDelete}
                         </div>
                     </c:if>
+                    <c:if test="${not empty sessionScope.dbEdit}">
+                        <div id="stateBanner"
+                             class="alert alert-success"
+                             role="alert"
+                             style="margin: 10px auto;
+                                    padding: 15px 20px;
+                                    font-size: 1em;
+                                    width: 100%;
+                                    text-align: left;
+                                    border-radius: 5px;">
+                            ${sessionScope.dbEdit}
+                        </div>
+                    </c:if>
                     
                     <%--Manage Customer container--%>
                     <div class="mt-4">
@@ -233,7 +246,8 @@
                         stateBanner.style.display = 'none';
                         <% session.removeAttribute("error");%>
                         <% session.removeAttribute("dbCreate");%>
-                        <% session.removeAttribute("dbDelete");%>    
+                        <% session.removeAttribute("dbDelete");%>
+                        <% session.removeAttribute("dbEdit");%> 
                     }, 5000); // Hide after 5 seconds (5000 milliseconds)
                 }
             };

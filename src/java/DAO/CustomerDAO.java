@@ -163,6 +163,38 @@ public class CustomerDAO {
         return result;
     }
     
+    public static int updateCustomer(Customer target) {
+        int result = 0;
+        Connection cn = null;
+        
+        try {
+            cn=DBUtils.getConnection();
+            if (cn!=null) {
+                String sql = "UPDATE Customer SET custName = ?, phone = ?, sex = ?, cusAddress = ? WHERE custID = " + target.getCustID();
+                PreparedStatement pStatement = cn.prepareStatement(sql);
+                pStatement.setString(1, target.getCustName());
+                pStatement.setString(2, target.getPhone());
+                pStatement.setString(3, target.getSex());
+                pStatement.setString(4, target.getCusAddress());
+                result = pStatement.executeUpdate();
+                pStatement.close();
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("[CustomerDAO.java] error updating Customer");
+        } finally {
+            if (cn != null) {
+                try {
+                    cn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return result;
+    }
+    
     //function to check for existing customer name (trimmed) or phone
     //return true if name or phone is duplicate
     public boolean customerExists(String custName, String phone) {
