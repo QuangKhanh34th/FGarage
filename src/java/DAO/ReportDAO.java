@@ -19,12 +19,11 @@ import java.util.Map;
  * @author USER
  */
 public class ReportDAO {
-  
+
     private Connection cn;
     PreparedStatement pt = null;
     ResultSet rs = null;
 
-    // Thống kê số lượng xe bán theo từng năm
     public Map<Integer, Integer> getCarsSoldByYear() throws SQLException, ClassNotFoundException {
         Map<Integer, Integer> carsSoldByYear = new HashMap<>();
 
@@ -52,7 +51,43 @@ public class ReportDAO {
         return carsSoldByYear;
     }
 
-    // Thống kê mẫu xe bán chạy nhất
+    public ArrayList<String[]> getSalesRevenueByYear(int year) throws SQLException {
+        ArrayList<String[]> salesRevenue = new ArrayList<>();
+        try {
+            cn = utils.DBUtils.getConnection();
+            if (cn != null) {
+                String sql = "SELECT YEAR(invoiceDate) AS year, model, COUNT(*) AS total "
+                        + "FROM SalesInvoice "
+                        + "JOIN Cars ON SalesInvoice.carID = Cars.carID "
+                        + "WHERE YEAR(invoiceDate) = ? "
+                        + "GROUP BY YEAR(invoiceDate), model "
+                        + "ORDER BY model";
+                pt = cn.prepareStatement(sql);
+                pt.setInt(1, year);
+                rs = pt.executeQuery();
+                while (rs.next()) {
+                    String reportYear = String.valueOf(rs.getInt("year"));
+                    String model = rs.getString("model");
+                    String total = String.valueOf(rs.getInt("total"));
+                    salesRevenue.add(new String[]{reportYear, model, total});
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pt != null) {
+                pt.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+            if (cn != null) {
+                cn.close();
+            }
+        }
+        return salesRevenue;
+    }
+
     public ArrayList<String[]> getBestSellingCarModels() throws SQLException {
         ArrayList<String[]> modelBestSelling = new ArrayList<>();
         int maxSales = 0;
@@ -131,10 +166,10 @@ public class ReportDAO {
         try {
             cn = utils.DBUtils.getConnection();
             String sql = "SELECT TOP 3 m.mechanicName, COUNT(*) AS total_repairs "
-           + "FROM Mechanic m "
-           + "JOIN ServiceMechanic s ON m.mechanicID = s.mechanicID "
-           + "GROUP BY m.mechanicName "
-           + "ORDER BY total_repairs DESC";
+                    + "FROM Mechanic m "
+                    + "JOIN ServiceMechanic s ON m.mechanicID = s.mechanicID "
+                    + "GROUP BY m.mechanicName "
+                    + "ORDER BY total_repairs DESC";
 
             pt = cn.prepareStatement(sql);
             rs = pt.executeQuery();

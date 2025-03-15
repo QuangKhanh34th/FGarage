@@ -9,6 +9,7 @@ import DAO.ReportDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -32,6 +33,15 @@ public class ReportServlet extends HttpServlet {
             Map<Integer, Integer> carsSoldByYear = reportDAO.getCarsSoldByYear();
             request.setAttribute("carsSoldByYear", carsSoldByYear);
 
+            ArrayList<Integer> availableYears = new ArrayList<>(carsSoldByYear.keySet());
+            Collections.sort(availableYears); // Sắp xếp tăng dần
+            request.setAttribute("availableYears", availableYears);
+            String yearParam = request.getParameter("year");
+            int selectedYear = (yearParam != null) ? Integer.parseInt(yearParam) : (availableYears.isEmpty() ? 0 : availableYears.get(0));
+            request.setAttribute("selectedYear", selectedYear);
+            ArrayList<String[]> salesRevenue = reportDAO.getSalesRevenueByYear(selectedYear);
+            request.setAttribute("salesRevenue", salesRevenue);
+
             // Lấy danh sách mẫu xe bán chạy nhất (List<String> thay vì Map<String, Integer>)
             ArrayList<String[]> modelBestSelling = reportDAO.getBestSellingCarModels();
             request.setAttribute("modelBestSelling", modelBestSelling);
@@ -53,10 +63,11 @@ public class ReportServlet extends HttpServlet {
 
             // Chuyển dữ liệu đến trang JSP hiển thị
             request.getRequestDispatcher("SalesDashboard/StatisticsFunction.jsp").forward(request, response);
+
         } catch (Exception ex) {
             ex.printStackTrace();
             request.setAttribute("errorMessage", "Có lỗi xảy ra khi lấy dữ liệu báo cáo.");
-            request.getRequestDispatcher("SalesDashboard/StatisticsFunction.jsp").forward(request, response);
+            request.getRequestDispatcher("SalesDashboard/StatisticFunction.jsp").forward(request, response);
 
         }
     }
@@ -67,4 +78,3 @@ public class ReportServlet extends HttpServlet {
         doGet(request, response);
     }
 }
-

@@ -56,6 +56,49 @@
                     %>
                 </table>
 
+                <h2>Car Sales Revenue By Year</h2>
+                <form method="get" action="ReportServlet">
+                    Choose year:
+                    <select name="year" onchange="this.form.submit()">
+                        <%
+                            ArrayList<Integer> availableYears = (ArrayList<Integer>) request.getAttribute("availableYears");
+                            int selectedYear = (int) request.getAttribute("selectedYear");
+                            for (Integer year : availableYears) {
+                        %>
+                        <option value="<%= year%>" <%= (year == selectedYear) ? "selected" : ""%>><%= year%></option>
+                        <% } %>
+                    </select>
+
+                </form>
+
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Model</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% ArrayList<String[]> salesRevenue = (ArrayList<String[]>) request.getAttribute("salesRevenue");
+                            if (salesRevenue != null && !salesRevenue.isEmpty()) {
+                                for (String[] row : salesRevenue) {%>
+                        <tr>
+                            <td><%= row[0]%></td>
+                            <td><%= row[1]%></td>
+                            <td><%= row[2]%></td>
+                        </tr>
+                        <%   }
+                        } else {
+                        %>
+                        <tr>
+                            <td colspan="3">No data available.</td>
+                        </tr>
+                        <% }
+                        %>
+                    </tbody>
+                </table>
+
                 <h2>Best Selling Car Model</h2>
                 <table>
                     <tr>
@@ -76,7 +119,11 @@
                         }
                     } else {
                     %>
-                    <tr><td colspan="2">No data available.</td></tr>
+                    <tr>
+                        <
+                      <td colspan="2">No data available.</td>
+                       
+                    </tr>
 
                     <%
                         }
@@ -128,11 +175,15 @@
                         <td><%= entry.getValue()%></td>
                     </tr>
                     <%
-                            }
+                        }
+                    } else {
+                    %>
+                    <tr><td colspan="2">No data available.</td></tr>
+                    <%
                         }
                     %>
                 </table>
             </div>
         </div>
-                </body>
-                </html>
+    </body>
+</html>

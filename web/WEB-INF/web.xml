@@ -17,6 +17,10 @@
         <servlet-class>controller.loginCustServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>SalesInvoiceServlet</servlet-name>
+        <servlet-class>controller.SalesInvoiceServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>loginSalesServlet</servlet-name>
         <servlet-class>controller.loginSalesServlet</servlet-class>
     </servlet>
@@ -99,6 +103,10 @@
     <servlet-mapping>
         <servlet-name>EditCustomerServlet</servlet-name>
         <url-pattern>/EditCustomerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SalesInvoiceServlet</servlet-name>
+        <url-pattern>/SalesDashboard/SalesInvoiceServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReportServlet</servlet-name>
