@@ -5,7 +5,6 @@
 
 package controller;
 
-import DAO.SalesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -42,7 +41,7 @@ public class GetCustomerServlet extends HttpServlet {
                 //if is set, the returned value should always be true
                  dbUpdate = (boolean) request.getAttribute("dbUpdate");
             } catch (NullPointerException e) {
-                System.out.println("dbUpdate not found");
+                System.out.println("[GetCustomerServlet.java] dbUpdate not found");
             }
             
             if (dbUpdate) {

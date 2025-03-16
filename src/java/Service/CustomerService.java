@@ -59,15 +59,6 @@ public class CustomerService {
     //used for passing to the view 
     public ArrayList<Customer> getPaginatedCustomers(ArrayList<Customer> customers, int page, int recordsPerPage) {
         int totalCustomers = customers.size();
-        /*
-            Calculating the total number of pages needed to display all records
-            Initial formula: totalCustomers / recordsPerPage
-                Type cast the formula to use "double" value for precise calculation
-                wrap the formula in math.ceil() to round the number to nearest integer (ex: 3.5 -> 4)
-                Type cast the result back to integer value
-        */
-        int totalPages = (int) Math.ceil((double) totalCustomers / recordsPerPage);
-        
         /*  
             Calculating start and end index to divide the list into sublist for display
             Example (startIndex):

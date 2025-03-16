@@ -9,7 +9,7 @@
     if (session.getAttribute("custInfo") == null) {
         request.getRequestDispatcher("/MainServlet?action=validateState").forward(request, response);
         return; // Important: Prevent further processing of the JSP
-    }    
+    }
 %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -25,7 +25,7 @@
         <div class="wrapper">          
             <%--Side bar--%>
             <jsp:include page="sidebar.jsp"/>
-            
+
             <%--Main content--%>
             <div class="main p-3 d-flex">
                 <div class="container mt-5">
@@ -34,15 +34,15 @@
                              class="alert alert-danger"
                              role="alert"
                              style="margin: 10px auto; /* Increased top/bottom margin */
-                                    padding: 15px 20px; /* Increased vertical padding */
-                                    font-size: 1em; /* Default font size */
-                                    width: 100%; /* Increased width */
-                                    text-align: left; /* Left-align the  text */
-                                    border-radius: 5px; /* Rounded corners for a softer look */">
+                             padding: 15px 20px; /* Increased vertical padding */
+                             font-size: 1em; /* Default font size */
+                             width: 100%; /* Increased width */
+                             text-align: left; /* Left-align the  text */
+                             border-radius: 5px; /* Rounded corners for a softer look */">
                             ${sessionScope.error}
                         </div>
                     </c:if>
-                   <div class="col-6">
+                    <div class="col-6">
                         <div class="row mb-4">
                             <h1 class="col-4">Customer Details</h1>
                             <div class="col-8 text-end">
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <%--Modals--%>
                 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -97,8 +97,8 @@
                         </div>
                     </div>
                 </div>
-                            
-                            
+
+
                 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -142,56 +142,57 @@
 
 
             </div>
-        </div><div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="editModalLabel">Edit Customer</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Customer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="editCustomerForm" action="${pageContext.request.contextPath}/MainServlet" method="post" accept-charset="UTF-8">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-9 mb-3">
+                                <input type="hidden" name="action" value="custEdit">
+                                <input type="hidden" name="custId" value="${sessionScope.custInfo.getCustID()}">
+                                <input type="text" class="form-control" id="custName" name="custName" placeholder="Customer Name" value="${sessionScope.custInfo.getCustName()}" required>
                             </div>
-                            <form id="editCustomerForm" action="${pageContext.request.contextPath}/MainServlet" method="post" accept-charset="UTF-8">
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col-md-9 mb-3">
-                                            <input type="hidden" name="action" value="custEdit">
-                                            <input type="hidden" name="custId" value="${sessionScope.custInfo.getCustID()}">
-                                            <input type="text" class="form-control" id="custName" name="custName" placeholder="Customer Name" value="${sessionScope.custInfo.getCustName()}" required>
-                                        </div>
-                                        <div class="col-md-3 mb-3">
-                                            <select class="form-select" id="custSex" name="custSex" required>
-                                                <option value="M" ${sessionScope.custInfo.getSex() == 'M' ? 'selected' : ''}>Male</option>
-                                                <option value="F" ${sessionScope.custInfo.getSex() == 'F' ? 'selected' : ''}>Female</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="custPhone" class="form-label">Phone Number</label>
-                                        <input type="number" class="form-control" id="custPhone" name="custPhone" value="${sessionScope.custInfo.getPhone()}" required max="99999999999999">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="custAddress" class="form-label">Address</label>
-                                        <input type="text" class="form-control" id="custAddress" name="custAddress" value="${sessionScope.custInfo.getCusAddress()}" required>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" onclick="showConfirmationModal()">Save Changes</button>
-                                </div>
-                            </form>
+                            <div class="col-md-3 mb-3">
+                                <select class="form-select" id="custSex" name="custSex" required>
+                                    <option value="M" ${sessionScope.custInfo.getSex() == 'M' ? 'selected' : ''}>Male</option>
+                                    <option value="F" ${sessionScope.custInfo.getSex() == 'F' ? 'selected' : ''}>Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="custPhone" class="form-label">Phone Number</label>
+                            <input type="number" class="form-control" id="custPhone" name="custPhone" value="${sessionScope.custInfo.getPhone()}" required max="99999999999999">
+                        </div>
+                        <div class="mb-3">
+                            <label for="custAddress" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="custAddress" name="custAddress" value="${sessionScope.custInfo.getCusAddress()}" required>
                         </div>
                     </div>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="showConfirmationModal()">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-                            
-        <script>
-            window.onload = function() {
-                var stateBanner = document.getElementById('stateBanner');
-                if (stateBanner) {
-                    setTimeout(function() {
-                        stateBanner.style.display = 'none';
-                        <% session.removeAttribute("error");%>   
-                    }, 5000); // Hide after 5 seconds (5000 milliseconds)
-                }
-            };
-        </script>
-    </body>
+
+    <script>
+        window.onload = function () {
+            var stateBanner = document.getElementById('stateBanner');
+            if (stateBanner) {
+                setTimeout(function () {
+                    stateBanner.style.display = 'none';
+        <% session.removeAttribute("error");%>
+                }, 5000); // Hide after 5 seconds (5000 milliseconds)
+            }
+        };
+    </script>
+</body>
 </html>

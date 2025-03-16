@@ -119,16 +119,38 @@ public class MainServlet extends HttpServlet {
                         url="/EditCustomerServlet";
                         break;
                     }
-                    // SalesPerson
-                    /*case "getReport": {
-                        url="/ReportServlet";
+
+                    
+                    //CarFunction-related action
+                    case "getCarList": {
+                        url="/GetCarServlet";
                         break;
                     }
-                    case "getPart":{
-                        url="SalesDashboard/PartServlet";
+                    
+                    case "carSearch": {
+                        url="/GetCarServlet";
                         break;
-                    }*/
-
+                    }
+                    
+                    case "carAdd": {
+                        url="/AddCarServlet";
+                        break;
+                    }
+                    
+                    case "carView": {
+                        url="/CarDetailsServlet";
+                        break;
+                    }
+                    
+                    case "carDel": {
+                        url="/DeleteCarServlet";
+                        break;
+                    }
+                    
+                    case "carEdit": {
+                        url="/EditCarServlet";
+                        break;
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
