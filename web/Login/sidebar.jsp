@@ -75,7 +75,7 @@
               </li>
 
                 <li class="sidebar-item">
-                    <a href="StatisticsFunction.jsp" class="sidebar-link">
+                    <a href="${pageContext.request.contextPath}/MainServlet?action=getReport" class="sidebar-link">
                         <i class="bi bi-bar-chart-line"></i>
                         <span style="font-weight: bold;">Reports</span>
                     </a>

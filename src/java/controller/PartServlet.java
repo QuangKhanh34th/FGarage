@@ -50,6 +50,8 @@ public class PartServlet extends HttpServlet {
             }
             ArrayList<Part> parts = partDAO.getAllParts();
             request.setAttribute("parts", parts);
+            request.getRequestDispatcher(
+                    "PartFunction.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(PartServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -17,6 +17,10 @@
         <servlet-class>controller.loginCustServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>SalesInvoiceServlet</servlet-name>
+        <servlet-class>controller.SalesInvoiceServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>loginSalesServlet</servlet-name>
         <servlet-class>controller.loginSalesServlet</servlet-class>
     </servlet>
@@ -137,9 +141,7 @@
         <url-pattern>/EditCarServlet</url-pattern>
     </servlet-mapping>
     <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
+        <session-timeout>30</session-timeout>
     </session-config>
     <welcome-file-list>
         <welcome-file>MainServlet</welcome-file>
