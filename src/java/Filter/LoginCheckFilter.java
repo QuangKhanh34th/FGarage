@@ -117,7 +117,7 @@ public class LoginCheckFilter implements Filter {
         
         Throwable problem = null;
         try {
-            HttpServletRequest httpRequest = (HttpServletRequest) request;
+       HttpServletRequest httpRequest = (HttpServletRequest) request;
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             //only check for login and not creating new session for resource saving
             HttpSession session = httpRequest.getSession(false);

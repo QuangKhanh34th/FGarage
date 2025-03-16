@@ -119,6 +119,16 @@ public class MainServlet extends HttpServlet {
                         url="/EditCustomerServlet";
                         break;
                     }
+                    // SalesPerson
+                    /*case "getReport": {
+                        url="/ReportServlet";
+                        break;
+                    }
+                    case "getPart":{
+                        url="SalesDashboard/PartServlet";
+                        break;
+                    }*/
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();
