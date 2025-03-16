@@ -98,7 +98,7 @@
                             <%--search bar for the below table--%>
                             <div class="col-auto">
                                 <form action="${pageContext.request.contextPath}/MainServlet" class="d-flex align-items-center">
-                                    <div class="col-5">
+                                    <div class="col-5" style="padding-right: 7px">
                                         <select class="form-select" id="inputType" name="searchCriteria">
                                             <option selected disabled>Search criteria</option>
                                             <option value="carSerialNumber">Serial Number</option>
@@ -141,7 +141,7 @@
                                                     <div class="row"> 
                                                         <div class="col-md-6 mb-3">
                                                             <select class="form-select" id="yearSelect" name="carYearAdd" required>
-                                                                <option selected disabled="">Year</option>
+                                                                <option value="" selected disabled>Year</option>
                                                                 <%
                                                                     int currentYear = java.time.Year.now().getValue();
                                                                     for (int i = currentYear; i >= currentYear - 100; i--) {

@@ -5,12 +5,14 @@
 
 package controller;
 
+import Service.CarService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -28,17 +30,23 @@ public class DeleteCarServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet DeleteCarServlet</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet DeleteCarServlet at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        int targetID = Integer.parseInt(request.getParameter("carId"));
+        CarService cs = new CarService();
+        HttpSession session = request.getSession();
+        
+        boolean deleteStatus = cs.deleteCar(targetID);
+        
+        if (!deleteStatus) {
+            //edge case handling
+            session.removeAttribute("carInfo");
+            session.setAttribute("error", "Error removing Csr: Couldn't fetch necessary data");
+            response.sendRedirect("SalesDashboard/CarFunction.jsp");    
+        } else {
+            session.setAttribute("dbDelete", "Car data deleted successfully");
+            //also edge case handling
+            session.removeAttribute("carInfo");
+            request.setAttribute("dbUpdate", deleteStatus);
+            request.getRequestDispatcher("/GetCarServlet").forward(request, response);
         }
     } 
 

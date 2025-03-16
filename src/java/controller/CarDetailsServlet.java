@@ -5,12 +5,15 @@
 
 package controller;
 
+import Service.CarService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Car;
 
 /**
  *
@@ -29,16 +32,20 @@ public class CarDetailsServlet extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CarDetailsServlet</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CarDetailsServlet at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            int targetID = Integer.parseInt(request.getParameter("carId"));
+            CarService customerService = new CarService();
+            HttpSession session = request.getSession();
+            
+            Car car = customerService.getCarById(targetID, session);
+            
+            if (car != null) {
+                session.setAttribute("carInfo", car);
+                response.sendRedirect("SalesDashboard/CarDetails.jsp");
+            } else {
+                System.out.println("[CarDetailsServlet.java] Error fetching car: car not found");
+                session.setAttribute("error", "Error fetching car: car not found");
+                response.sendRedirect("SalesDashboard/CarFunction.jsp");
+            }
         }
     } 
 

@@ -6,7 +6,6 @@ package controller;
 
 import Service.CarService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -59,7 +58,7 @@ public class GetCarServlet extends HttpServlet {
         }
         CarService carService = new CarService();
         ArrayList<Car> allCars = (ArrayList<Car>) session.getAttribute("carList");
-
+        
         // Get the base list from the database if needed (mostly in the case of initial load or dbUpdate is found)
         ArrayList<Car> cars;
         if (allCars == null) {
@@ -78,7 +77,8 @@ public class GetCarServlet extends HttpServlet {
             searchQuery = request.getParameter("carSearch");
             session.setAttribute("searchQuery", searchQuery);
         }
-        //Apply search filters
+        //Apply search filters (if-condition for initial load)
+        if (searchCriteria != null && searchQuery != null)
         cars = carService.getCars(searchCriteria, searchQuery, allCars);
         
         // Store search parameters in session

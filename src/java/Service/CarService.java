@@ -6,6 +6,7 @@ package Service;
 
 import DAO.CarDAO;
 import java.util.ArrayList;
+import javax.servlet.http.HttpSession;
 import model.Car;
 
 /**
@@ -56,6 +57,23 @@ public class CarService {
         }
         return allCars;
     }
+    
+    public Car getCarById(int carID, HttpSession session) {
+        /*
+            Get the fetched list first
+            If for some reasons the list didnt exist yet, get it from the database
+        */
+        ArrayList<Car> searchList = (ArrayList<Car>) session.getAttribute("carList");
+        if (searchList==null) searchList = getCars();
+        Car result=null;
+        
+        for (Car customer : searchList) {
+            if (customer.getCarID()==carID) {
+                result= customer;
+            }
+        }
+        return result;
+    }
 
     public ArrayList<Car> getPaginatedCars(ArrayList<Car> cars, int page, int recordsPerPage) {
         int totalCars = cars.size();
@@ -73,5 +91,32 @@ public class CarService {
         
         //Calculating total pages needed to display all records
         return (int) Math.ceil((double) totalCars / recordsPerPage);
+    }
+    
+    public String trimString(String target) {
+        return target.replaceAll("\\s+", "");
+    }
+    
+    public boolean addCar(Car target) {
+        String trimmedSerialNumber = trimString(target.getSerialNumber());
+        
+        if (CarDAO.carExist(trimmedSerialNumber)) {
+            System.out.println("[CarService.java] serialNumber is identical with data in db");
+            return false;
+        }
+        
+         int result = CarDAO.addCar(target);
+        return result != 0;
+    }
+    
+    public boolean deleteCar(int targetID) {
+        int result = CarDAO.deleteCar(targetID);
+        return result !=0;
+    }
+    
+    //pass the session for getting the saved customerList
+    public boolean updateCar(Car target) {  
+        int result = CarDAO.updateCar(target);
+        return result != 0;
     }
 }

@@ -5,12 +5,15 @@
 
 package controller;
 
+import Service.CarService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Car;
 
 /**
  *
@@ -27,18 +30,29 @@ public class AddCarServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AddCarServlet</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AddCarServlet at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+
+        String carSerial = request.getParameter("carSerialAdd");
+        String carModel = request.getParameter("carModelAdd");
+        String carYear = request.getParameter("carYearAdd");
+        String carColour = request.getParameter("carColourAdd");
+        
+        HttpSession session = request.getSession();
+        CarService carService = new CarService();
+        
+        boolean addStatus = carService.addCar(new Car(carSerial, carModel, carColour, carYear));
+
+        //If add successfully, go to GetCarServlet to refresh the data for viewing
+        //Else add an error message to session for the jsp to display
+        if(!addStatus) {
+            session.setAttribute("error", "Error adding Car: Car's Serial Number has already exists in database");
+            request.getRequestDispatcher("/GetCarServlet").forward(request, response);
+        } else {
+            session.setAttribute("dbCreate", "Car data added successfully");
+            request.setAttribute("dbUpdate", addStatus);
+            request.getRequestDispatcher("/GetCarServlet").forward(request, response);
         }
     } 
 
