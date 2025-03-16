@@ -52,6 +52,26 @@
         <servlet-name>EditCustomerServlet</servlet-name>
         <servlet-class>controller.EditCustomerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetCarServlet</servlet-name>
+        <servlet-class>controller.GetCarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddCarServlet</servlet-name>
+        <servlet-class>controller.AddCarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CarDetailsServlet</servlet-name>
+        <servlet-class>controller.CarDetailsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCarServlet</servlet-name>
+        <servlet-class>controller.DeleteCarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditCarServlet</servlet-name>
+        <servlet-class>controller.EditCarServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
         <url-pattern>/MainServlet</url-pattern>
@@ -95,6 +115,26 @@
     <servlet-mapping>
         <servlet-name>EditCustomerServlet</servlet-name>
         <url-pattern>/EditCustomerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetCarServlet</servlet-name>
+        <url-pattern>/GetCarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCarServlet</servlet-name>
+        <url-pattern>/AddCarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CarDetailsServlet</servlet-name>
+        <url-pattern>/CarDetailsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCarServlet</servlet-name>
+        <url-pattern>/DeleteCarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditCarServlet</servlet-name>
+        <url-pattern>/EditCarServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
