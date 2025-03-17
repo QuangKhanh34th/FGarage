@@ -51,7 +51,7 @@ public class MainController extends HttpServlet {
                     url = "UpdateServiceTicketServlet";
                     break;
 
-                // 📌 **Quản lý dịch vụ (Manage Services)**
+                //Manage Services
                 case "ViewAllServices":
                 case "Create":
                 case "Update":

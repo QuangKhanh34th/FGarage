@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ServiceTicketDAO {
 
-    // Lấy tất cả service tickets
+    
     public List<ServiceTicketDTO> getAllServiceTickets() {
         List<ServiceTicketDTO> list = new ArrayList<>();
         String sql = "SELECT serviceTicketID, dateReceived, dateReturned, custID, carID FROM ServiceTicket";
@@ -39,12 +39,12 @@ public class ServiceTicketDAO {
         return list;
     }
 
-    // Tìm kiếm Service Ticket theo một trường cụ thể
+    
     public List<ServiceTicketDTO> searchServiceTickets(String searchType, String searchValue) {
         List<ServiceTicketDTO> list = new ArrayList<>();
         String sql = "SELECT serviceTicketID, dateReceived, dateReturned, custID, carID FROM ServiceTicket WHERE ";
 
-        // Kiểm tra searchType hợp lệ để tránh SQL Injection
+        
         switch (searchType) {
             case "custID":
                 sql += "custID LIKE ?";
@@ -56,16 +56,16 @@ public class ServiceTicketDAO {
                 sql += "dateReceived = ?";
                 break;
             default:
-                return list; // Nếu searchType không hợp lệ, trả về danh sách rỗng
+                return list; 
         }
 
         try (Connection conn = DBUtils.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)) {
 
             if (searchType.equals("dateReceived")) {
-                ps.setDate(1, Date.valueOf(searchValue)); // Chuyển đổi String thành Date
+                ps.setDate(1, Date.valueOf(searchValue)); 
             } else {
-                ps.setString(1, "%" + searchValue + "%"); // Tìm kiếm gần đúng
+                ps.setString(1, "%" + searchValue + "%"); 
             }
 
             try (ResultSet rs = ps.executeQuery()) {
@@ -85,17 +85,17 @@ public class ServiceTicketDAO {
         return list;
     }
 
-    // Tìm kiếm theo custID
+    
     public List<ServiceTicketDTO> searchByCustID(String custID) {
         return searchServiceTickets("custID", custID);
     }
 
-    // Tìm kiếm theo carID
+    
     public List<ServiceTicketDTO> searchByCarID(String carID) {
         return searchServiceTickets("carID", carID);
     }
 
-    // Tìm kiếm theo dateReceived
+    
     public List<ServiceTicketDTO> searchByDateReceived(String dateReceived) {
         return searchServiceTickets("dateReceived", dateReceived);
     }
@@ -144,7 +144,7 @@ public class ServiceTicketDAO {
         return tickets;
     }
 
-    // Lấy thông tin cơ bản của Service Ticket + Car
+    
     public ServiceTicketDetailDTO getServiceTicketInfo(int serviceTicketID) {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -196,7 +196,7 @@ public class ServiceTicketDAO {
         return detail;
     }
 
-    // Lấy danh sách dịch vụ đã thực hiện
+    
     public List<ServiceDetailDTO> getServiceDetails(int serviceTicketID) {
         Connection conn = null;
         List<ServiceDetailDTO> services = new ArrayList<>();
@@ -246,7 +246,7 @@ public class ServiceTicketDAO {
         return services;
     }
 
-    // Lấy danh sách phụ tùng đã sử dụng
+    
     public List<PartDetailDTO> getPartDetails(int serviceTicketID) {
         Connection conn = null;
         List<PartDetailDTO> parts = new ArrayList<>();

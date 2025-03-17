@@ -10,6 +10,57 @@
 <head>
     <title>Login</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #343a40;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+        select, input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 10px;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        p.error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
     <script>
         function toggleForm() {
             var role = document.getElementById("role").value;
@@ -17,56 +68,41 @@
             var phoneDiv = document.getElementById("customerFields");
             var phoneInput = document.getElementById("phone");
 
-            // Reset name và phone khi đổi role
             nameInput.value = "";
             phoneInput.value = "";
 
-            if (role === "Mechanic") {
-                phoneDiv.style.display = "none"; // Ẩn phone nếu là Mechanic
-            } else {
-                phoneDiv.style.display = "block"; // Hiện phone nếu là Customer
-            }
+            phoneDiv.style.display = (role === "Mechanic") ? "none" : "block";
         }
 
         window.onload = function () {
-            var role = document.getElementById("role").value;
-            var phoneDiv = document.getElementById("customerFields");
-
-            // Hiển thị hoặc ẩn ô phone dựa vào role
-            if (role === "Customer") {
-                phoneDiv.style.display = "block";
-            } else {
-                phoneDiv.style.display = "none";
-            }
+            toggleForm();
         };
     </script>
 </head>
 <body>
-    <h2>Login</h2>
-    <form action="LoginServlet" method="POST">
-        <label for="role">Login as:</label>
-        <select id="role" name="role" onchange="toggleForm()">
-            <option value="Mechanic" ${requestScope.role == 'Mechanic' ? 'selected' : ''}>Mechanic</option>
-            <option value="Customer" ${requestScope.role == 'Customer' ? 'selected' : ''}>Customer</option>
-        </select>
-        <br><br>
+    <div class="container">
+        <h2>Login</h2>
+        <form action="LoginServlet" method="POST">
+            <label for="role">Login as:</label>
+            <select id="role" name="role" onchange="toggleForm()">
+                <option value="Mechanic" ${requestScope.role == 'Mechanic' ? 'selected' : ''}>Mechanic</option>
+                <option value="Customer" ${requestScope.role == 'Customer' ? 'selected' : ''}>Customer</option>
+            </select>
 
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
-        <br><br>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
 
-        <div id="customerFields" style="display:none;">
-            <label for="phone">Phone:</label>
-            <input type="text" id="phone" name="phone">
-            <br><br>
-        </div>
+            <div id="customerFields" style="display:none;">
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" name="phone">
+            </div>
 
-        <input type="submit" value="Login">
-    </form>
+            <input type="submit" value="Login">
+        </form>
 
-    <%-- Hiển thị thông báo lỗi bằng JSTL --%>
-    <c:if test="${not empty ERROR}">
-        <p style="color:red;">${ERROR}</p>
-    </c:if>
+        <c:if test="${not empty ERROR}">
+            <p class="error">${ERROR}</p>
+        </c:if>
+    </div>
 </body>
 </html>

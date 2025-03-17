@@ -12,6 +12,12 @@
         <title>Error Page</title>
     </head>
     <body>
-        <h1>Error!</h1>
+        <h1 style="color: red;">An error has occurred!</h1>
+
+        <c:if test="${not empty requestScope.ERROR}">
+            <h3 style="color: darkred;">Error Message:</h3>
+            <p>${requestScope.ERROR}</p>
+        </c:if>
+
     </body>
 </html>

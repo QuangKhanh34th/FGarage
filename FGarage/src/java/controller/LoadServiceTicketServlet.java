@@ -19,26 +19,26 @@ public class LoadServiceTicketServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
 
-        // Kiểm tra nếu chưa đăng nhập, chuyển về login.jsp
+        
         if (session == null || !"Mechanic".equals(session.getAttribute("ROLE"))) {
             response.sendRedirect("MainController?action=Home");
             return;
         }
         try {
-            // ✅ Lấy đối tượng Mechanic từ session
+            
             MechanicDTO mechanic = (MechanicDTO) session.getAttribute("USER");
             
-            // ✅ Lấy mechanicID từ DTO
+            
             String mechanicID = mechanic.getMechanicID();
 
-            // ✅ Gọi DAO để lấy danh sách Service Tickets của mechanic này
+            
             ServiceMechanicDAO dao = new ServiceMechanicDAO();
             List<ServiceMechanicDTO> list = dao.getServiceMechanicByMechanicID(mechanicID);
             
 
-            // ✅ Đưa danh sách vào request để hiển thị trong JSP
+            
             request.setAttribute("SERVICE_TICKETS", list);
-            // ✅ Chuyển hướng đến trang updateServiceMechanic.jsp
+            
             request.getRequestDispatcher("updateServiceTicket.jsp").forward(request, response);
 
         } catch (Exception e) {

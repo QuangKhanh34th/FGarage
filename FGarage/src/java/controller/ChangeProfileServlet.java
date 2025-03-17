@@ -29,24 +29,24 @@ public class ChangeProfileServlet extends HttpServlet {
             return;
         }
 
-        // Lấy dữ liệu từ form
+        
         String custName = request.getParameter("custName");
         String phone = request.getParameter("phone");
         String sex = request.getParameter("sex");
         String cusAddress = request.getParameter("cusAddress");
 
-        // Cập nhật thông tin trong DTO
+        
         customer.setCustName(custName);
         customer.setPhone(phone);
         customer.setSex(sex);
         customer.setCusAddress(cusAddress);
 
-        // Gọi DAO để cập nhật vào database
+        
         CustomerDAO dao = new CustomerDAO();
         boolean success = dao.updateCustomerProfile(customer);
 
         if (success) {
-            session.setAttribute("USER", customer); // Cập nhật lại session
+            session.setAttribute("USER", customer); 
             request.setAttribute("SUCCESS", "Profile updated successfully!");
         } else {
             request.setAttribute("ERROR", "Failed to update profile. Please try again!");

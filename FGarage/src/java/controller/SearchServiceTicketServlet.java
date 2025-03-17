@@ -18,23 +18,23 @@ public class SearchServiceTicketServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
 
-        // Kiểm tra nếu chưa đăng nhập, chuyển về login.jsp
+        
         if (session == null || !"Mechanic".equals(session.getAttribute("ROLE"))) {
             response.sendRedirect("MainController?action=Home");
             return;
         }
 
         try {
-            String searchType = request.getParameter("searchType"); // Lấy loại tìm kiếm
-            String searchValue = request.getParameter("searchValue"); // Lấy giá trị tìm kiếm
+            String searchType = request.getParameter("searchType");
+            String searchValue = request.getParameter("searchValue");
 
             ServiceTicketDAO dao = new ServiceTicketDAO();
             List<ServiceTicketDTO> ticketList;
 
             if (searchValue == null || searchValue.trim().isEmpty()) {
-                ticketList = dao.getAllServiceTickets(); // Nếu không nhập giá trị tìm kiếm, hiển thị tất cả
+                ticketList = dao.getAllServiceTickets();
             } else {
-                ticketList = dao.searchServiceTickets(searchType, searchValue); // Gọi DAO để tìm kiếm
+                ticketList = dao.searchServiceTickets(searchType, searchValue); 
             }
 
             request.setAttribute("SERVICE_TICKET_LIST", ticketList);
@@ -42,7 +42,6 @@ public class SearchServiceTicketServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        // Điều hướng về trang serviceTicket.jsp để hiển thị kết quả
         request.getRequestDispatcher("MainController?action=ServiceTicket").forward(request, response);
     }
 
