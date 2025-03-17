@@ -60,7 +60,7 @@ public class CustomerServiceTicketServlet extends HttpServlet {
                     request.setAttribute("ticketDetail", ticketDetail);
                 }
             } catch (NumberFormatException e) {
-                request.setAttribute("error", "Invalid Service Ticket ID.");
+                request.setAttribute("ERROR", "Invalid Service Ticket ID.");
             }
         }
 

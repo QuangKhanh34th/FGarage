@@ -25,7 +25,7 @@ public class UpdateServiceTicketServlet extends HttpServlet {
                 int hours = Integer.parseInt(request.getParameter("hours_" + serviceTicketID + "_" + serviceID));
                 String comment = request.getParameter("comment_" + serviceTicketID + "_" + serviceID);
                 if (comment != null && comment.trim().isEmpty()) {
-                    comment = null; // Set NULL nếu người dùng không nhập gì
+                    comment = null;
                 }
                 double rate = Double.parseDouble(request.getParameter("rate_" + serviceTicketID + "_" + serviceID));
 

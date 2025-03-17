@@ -11,7 +11,7 @@ import java.sql.Types;
 
 public class ServiceMechanicDAO {
 
-    // ✅ Lấy danh sách Service Ticket của một Mechanic
+    
     public List<ServiceMechanicDTO> getServiceMechanicByMechanicID(String mechanicID) {
         List<ServiceMechanicDTO> list = new ArrayList<>();
         Connection conn = null;
@@ -59,7 +59,7 @@ public class ServiceMechanicDAO {
         return list;
     }
 
-    // ✅ Cập nhật Service Ticket
+    
     public boolean updateServiceMechanic(int serviceTicketID, int serviceID, String mechanicID, int hours, String comment, double rate) {
         Connection conn = null;
         PreparedStatement ps = null;

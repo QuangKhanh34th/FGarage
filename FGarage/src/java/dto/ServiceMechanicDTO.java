@@ -4,7 +4,7 @@ public class ServiceMechanicDTO {
 
     private int serviceTicketID;
     private int serviceID;
-    private String mechanicID; // Dùng String theo yêu cầu
+    private String mechanicID;
     private int hours;
     private String comment;
     private double rate;
