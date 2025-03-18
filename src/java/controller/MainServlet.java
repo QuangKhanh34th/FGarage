@@ -151,6 +151,22 @@ public class MainServlet extends HttpServlet {
                         url="/EditCarServlet";
                         break;
                     }
+                    
+                    //ServiceTicketFunction related functions
+                    case "getTicketList": {
+                        url = "/GetServiceTicketServlet";
+                        break;
+                    }
+                    
+                    case "ticketView": {
+                        url="ServiceTicketDetailsServlet";
+                        break;
+                    }
+                    
+                    case "serviceTicketAdd": {
+                        url= "/AddServiceTicketServlet";
+                        break;
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();

@@ -76,6 +76,18 @@
         <servlet-name>EditCarServlet</servlet-name>
         <servlet-class>controller.EditCarServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddServiceTicketServlet</servlet-name>
+        <servlet-class>controller.AddServiceTicketServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetServiceTicketServlet</servlet-name>
+        <servlet-class>controller.GetServiceTicketServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServiceTicketDetailsServlet</servlet-name>
+        <servlet-class>controller.ServiceTicketDetailsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
         <url-pattern>/MainServlet</url-pattern>
@@ -139,6 +151,18 @@
     <servlet-mapping>
         <servlet-name>EditCarServlet</servlet-name>
         <url-pattern>/EditCarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddServiceTicketServlet</servlet-name>
+        <url-pattern>/AddServiceTicketServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetServiceTicketServlet</servlet-name>
+        <url-pattern>/GetServiceTicketServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceTicketDetailsServlet</servlet-name>
+        <url-pattern>/ServiceTicketDetailsServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

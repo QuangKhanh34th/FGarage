@@ -37,8 +37,8 @@ public class CarDAO {
                     String colour = result.getString("colour");
                     String year = result.getString("year");
                     
-                    Car customer = new Car(id, serialNumber, model, colour, year);
-                    carList.add(customer);
+                    Car car = new Car(id, serialNumber, model, colour, year);
+                    carList.add(car);
                 }
             }
             

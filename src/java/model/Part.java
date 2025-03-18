@@ -11,6 +11,7 @@ public class Part {
     public String partName;
     public double purchasePrice;
     public double retailPrice;
+    public int numberUsed;
 
     public Part() {
     }
@@ -20,6 +21,14 @@ public class Part {
         this.partName = partName;
         this.purchasePrice = purchasePrice;
         this.retailPrice = retailPrice;
+    }
+
+    public Part(int partID, String partName, double purchasePrice, double retailPrice, int numberUsed) {
+        this.partID = partID;
+        this.partName = partName;
+        this.purchasePrice = purchasePrice;
+        this.retailPrice = retailPrice;
+        this.numberUsed = numberUsed;
     }
 
     public int getPartID() {
@@ -52,6 +61,14 @@ public class Part {
 
     public void setRetailPrice(double retailPrice) {
         this.retailPrice = retailPrice;
+    }
+
+    public int getNumberUsed() {
+        return numberUsed;
+    }
+
+    public void setNumberUsed(int numberUsed) {
+        this.numberUsed = numberUsed;
     }
     
 }

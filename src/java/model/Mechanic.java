@@ -11,22 +11,22 @@ import java.io.Serializable;
  * @author ASUS
  */
 public class Mechanic implements Serializable{
-    private int mechanicID;
+    private long mechanicID;
     private String mechanicName;
 
     public Mechanic() {
     }
 
-    public Mechanic(int mechanicID, String mechanicName) {
+    public Mechanic(long mechanicID, String mechanicName) {
         this.mechanicID = mechanicID;
         this.mechanicName = mechanicName;
     }
 
-    public int getMechanicID() {
+    public long getMechanicID() {
         return mechanicID;
     }
 
-    public void setMechanicID(int mechanicID) {
+    public void setMechanicID(long mechanicID) {
         this.mechanicID = mechanicID;
     }
 
