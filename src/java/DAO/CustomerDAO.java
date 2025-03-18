@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import model.Customer;
 import java.sql.Statement;
 import java.util.ArrayList;
+import model.CustomerDTO;
 import utils.DBUtils;
 
 /**
@@ -225,5 +226,43 @@ public class CustomerDAO {
             }
         }
         return exists;
+    }
+    
+    public boolean updateCustomerProfile(CustomerDTO customer) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        boolean updated = false;
+
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "UPDATE Customer SET custName=?, phone=?, sex=?, cusAddress=? WHERE custID=?";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, customer.getCustName());
+                ps.setString(2, customer.getPhone());
+                ps.setString(3, customer.getSex());
+                ps.setString(4, customer.getCusAddress());
+                ps.setString(5, customer.getCustID());
+
+                int rows = ps.executeUpdate();
+                if (rows > 0) {
+                    updated = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return updated;
     }
 }
