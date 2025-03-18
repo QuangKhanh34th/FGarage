@@ -4,21 +4,22 @@
  */
 package controller;
 
-import Service.CarService;
+import Service.ServiceTicketService;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Car;
+import model.ServiceTicket;
 
 /**
  *
  * @author ASUS
  */
-public class GetCarServlet extends HttpServlet {
+public class GetServiceTicketServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,7 +33,7 @@ public class GetCarServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        //Re-fetching car list info from database if a change in database is found
+        //Re-fetching Service Ticket list info from database if a change in database is found
         boolean dbUpdate = false;
         HttpSession session = request.getSession();
         try {
@@ -40,70 +41,40 @@ public class GetCarServlet extends HttpServlet {
             //if is set, the returned value should always be true
             dbUpdate = (boolean) request.getAttribute("dbUpdate");
         } catch (NullPointerException e) {
-            System.out.println("[GetCarServlet.java] Warning: dbUpdate not found");
+            System.out.println("[GetServiceTicketServlet.java] Warning: dbUpdate not found");
         }
 
         if (dbUpdate) {
             session.removeAttribute("carList");
         }
 
-        //Initialize variables
-        String searchCriteria = null;
-        String searchQuery = null;
-        try {
-            searchCriteria = request.getParameter("searchCriteria");
-            searchQuery = request.getParameter("carSearch");
-        } catch (NullPointerException error) {
-            System.out.println("[GetCarServlet.java] Warning: cannot find \"SearchCriteria\", \"SearchCriteria\"");
-        }
-        CarService carService = new CarService();
-        ArrayList<Car> allCars = (ArrayList<Car>) session.getAttribute("carList");
-        
-        // Get the base list from the database if needed (mostly in the case of initial load or dbUpdate is found)
-        ArrayList<Car> cars;
-        if (allCars == null) {
-            cars = carService.getCars();
-            session.setAttribute("carList", cars);
+        ServiceTicketService ticketService = new ServiceTicketService();
+        ArrayList<ServiceTicket> allTickets = (ArrayList<ServiceTicket>) session.getAttribute("ticketList");
+
+        ArrayList<ServiceTicket> tickets;
+        if (allTickets == null) {
+            tickets = ticketService.getTickets();
+            session.setAttribute("ticketList", tickets);
         } else {
-            cars = allCars;
+            tickets = allTickets;
         }
 
-        // Check if new search parameters are provided
-        if (request.getParameter("searchCriteria") != null) {
-            searchCriteria = request.getParameter("searchCriteria");
-            session.setAttribute("searchCriteria", searchCriteria);
-        }
-        if (request.getParameter("carSearch") != null) {
-            searchQuery = request.getParameter("carSearch");
-            session.setAttribute("searchQuery", searchQuery);
-        }
-        //Apply search filters (if-condition for initial load)
-        if (searchCriteria != null && searchQuery != null)
-        cars = carService.getCars(searchCriteria, searchQuery, allCars);
-        
-        // Store search parameters in session
-        session.setAttribute("searchCriteria", searchCriteria);
-        session.setAttribute("searchQuery", searchQuery);
-        
-        
         //Result Pagination
         int page = 1; //Default to page 1
         int recordsPerPage = 10; //Number of rows per page
 
-        //if "page" get passed from JSP, instead of page 1, we change the page to current page
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));
         }
 
-        ArrayList<Car> currentCarPageList = carService.getPaginatedCars(cars, page, recordsPerPage);
-        int totalPages = carService.getTotalPages(cars, recordsPerPage);
+        ArrayList<ServiceTicket> currentTicketPageList = ticketService.getPaginatedServiceTickets(tickets, page, recordsPerPage);
+        int totalPages = ticketService.getTotalPages(tickets, recordsPerPage);
 
-        session.setAttribute("currentCarPageList", currentCarPageList);
+        session.setAttribute("currentTicketPageList", currentTicketPageList);
         session.setAttribute("currentPage", page);
         session.setAttribute("totalPages", totalPages);
-
-        response.sendRedirect(request.getContextPath() + "/SalesDashboard/CarFunction.jsp");
-
+        
+        response.sendRedirect(request.getContextPath() + "/SalesDashboard/ServiceTicketFunction.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

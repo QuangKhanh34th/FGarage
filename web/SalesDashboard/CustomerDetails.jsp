@@ -12,6 +12,7 @@
     }
 %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -63,7 +64,13 @@
                                 </div>
                             </div>
                         </c:if>
-                        <div class="row mt-4 justify-content-end">
+                        <div class="row mt-4 justify-content-between">
+                            <c:set var="referer" value="${header['referer']}" />
+                            <div class="col-auto">
+                                <c:if test="${not empty referer and fn:contains(referer, 'ServiceTicketDetails.jsp')}">
+                                    <a href="${pageContext.request.contextPath}/MainServlet?action=ticketView&ticketId=${sessionScope.ticketInfo.getServiceTicketID()}" class="btn btn-secondary me-2">Back to Ticket Details</a>
+                                </c:if>
+                            </div>
                             <div class="col-auto">
                                 <a href="${pageContext.request.contextPath}/SalesDashboard/CustomerFunction.jsp" class="btn btn-secondary me-2">Back to Customers</a>
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Customer</button>
