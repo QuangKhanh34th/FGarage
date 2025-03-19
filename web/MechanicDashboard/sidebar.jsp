@@ -35,7 +35,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="ServiceTicketFunction.jsp" class="sidebar-link">
+                    <a href="${pageContext.request.contextPath}/MainController?action=ViewAllTickets" class="sidebar-link">
                         <i class="bi bi-ticket-detailed"></i>
                         <span style="font-weight: bold;">Service Tickets</span>
                     </a>
