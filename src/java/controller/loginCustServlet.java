@@ -42,6 +42,7 @@ public class loginCustServlet extends HttpServlet {
                 
                 if (customer != null) {
                     session.setAttribute("customer", customer);
+                    session.setAttribute("custID", customer.getCustID());
                     response.sendRedirect("CustomerDashboard/home.jsp");
                 } else {
                     System.out.println("[loginCustServlet.java] Error login: customer not found");

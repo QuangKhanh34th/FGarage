@@ -12,7 +12,7 @@ import java.sql.Types;
 public class ServiceMechanicDAO {
 
     
-    public List<ServiceMechanicDTO> getServiceMechanicByMechanicID(String mechanicID) {
+    public List<ServiceMechanicDTO> getServiceMechanicByMechanicID(long mechanicID) {
         List<ServiceMechanicDTO> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ps = null;
@@ -23,7 +23,7 @@ public class ServiceMechanicDAO {
             if (conn != null) {
                 String sql = "SELECT * FROM ServiceMehanic WHERE mechanicID = ?";
                 ps = conn.prepareStatement(sql);
-                ps.setString(1, mechanicID);
+                ps.setLong(1, mechanicID);
                 rs = ps.executeQuery();
 
                 while (rs.next()) {
@@ -60,7 +60,7 @@ public class ServiceMechanicDAO {
     }
 
     
-    public boolean updateServiceMechanic(int serviceTicketID, int serviceID, String mechanicID, int hours, String comment, double rate) {
+    public boolean updateServiceMechanic(int serviceTicketID, int serviceID, long mechanicID, int hours, String comment, double rate) {
         Connection conn = null;
         PreparedStatement ps = null;
         boolean updated = false;
@@ -79,7 +79,7 @@ public class ServiceMechanicDAO {
                 ps.setDouble(3, rate);
                 ps.setInt(4, serviceTicketID);
                 ps.setInt(5, serviceID);
-                ps.setString(6, mechanicID);
+                ps.setLong(6, mechanicID);
 
                 updated = ps.executeUpdate() > 0;
             }

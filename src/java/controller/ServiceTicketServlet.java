@@ -46,6 +46,7 @@ public class ServiceTicketServlet extends HttpServlet {
 
             request.setAttribute("SERVICE_TICKET_LIST", list);
             System.out.println("list" + list);
+            System.out.println("SERVICE_TICKET_LIST: " + request.getAttribute("SERVICE_TICKET_LIST"));
             request.getRequestDispatcher("MainController?action=ServiceTicket").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();

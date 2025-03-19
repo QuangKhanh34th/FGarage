@@ -59,10 +59,16 @@ public class MainController extends HttpServlet {
                     url = "ServiceServlet";
                     break;
                 case "ChangeProfile":
-                    url = "profile.jsp";
+                    url = "ChangeProfileServlet";
+                    break;
+                case "UpdateProfile":
+                    url = "CustomerDashboard/ProfileFunction.jsp";
                     break;
                 case "CustomerTicket":
                     url = "CustomerServiceTicketServlet";
+                    break;
+                case "TicketDetails":
+                    url = "CustomerDashboard/ServiceTicketFunction.jsp";
                     break;
                 default:
                     url = "error.jsp";

@@ -17,13 +17,13 @@ public class ServiceTicketDTO implements Serializable {
     private int serviceTicketID;
     private Date dateReceived;
     private Date dateReturned;
-    private String custID;
+    private int custID;
     private String carID;
 
     public ServiceTicketDTO() {
     }
 
-    public ServiceTicketDTO(int serviceTicketID, Date dateReceived, Date dateReturned, String custID, String carID) {
+    public ServiceTicketDTO(int serviceTicketID, Date dateReceived, Date dateReturned, int custID, String carID) {
         this.serviceTicketID = serviceTicketID;
         this.dateReceived = dateReceived;
         this.dateReturned = dateReturned;
@@ -55,11 +55,11 @@ public class ServiceTicketDTO implements Serializable {
         this.dateReturned = dateReturned;
     }
 
-    public String getCustID() {
+    public int getCustID() {
         return custID;
     }
 
-    public void setCustID(String custID) {
+    public void setCustID(int custID) {
         this.custID = custID;
     }
 

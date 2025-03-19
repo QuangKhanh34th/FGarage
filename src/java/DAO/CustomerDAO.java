@@ -228,7 +228,7 @@ public class CustomerDAO {
         return exists;
     }
     
-    public boolean updateCustomerProfile(CustomerDTO customer) {
+    public boolean updateCustomerProfile(Customer customer) {
         Connection conn = null;
         PreparedStatement ps = null;
         boolean updated = false;
@@ -242,7 +242,7 @@ public class CustomerDAO {
                 ps.setString(2, customer.getPhone());
                 ps.setString(3, customer.getSex());
                 ps.setString(4, customer.getCusAddress());
-                ps.setString(5, customer.getCustID());
+                ps.setInt(5, customer.getCustID());
 
                 int rows = ps.executeUpdate();
                 if (rows > 0) {

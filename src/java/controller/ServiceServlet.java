@@ -23,7 +23,8 @@ public class ServiceServlet extends HttpServlet {
             if ("ViewAllServices".equals(action)) {
                 List<ServiceDTO> services = serviceDAO.getAllServices();
                 request.setAttribute("SERVICES", services);
-                request.getRequestDispatcher("manageServices.jsp").forward(request, response);
+                System.out.println("ser" + services);
+                request.getRequestDispatcher("/MechanicDashboard/ServicesFunction.jsp").forward(request, response);
 
             } else if ("Create".equals(action)) {
                 String serviceName = request.getParameter("serviceName");

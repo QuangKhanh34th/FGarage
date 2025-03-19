@@ -1,7 +1,6 @@
 package controller;
 
 import DAO.ServiceMechanicDAO;
-import model.MechanicDTO;
 import model.ServiceMechanicDTO;
 import java.io.IOException;
 import java.util.List;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Mechanic;
 
 @WebServlet(name = "LoadServiceTicketServlet", urlPatterns = {"/LoadServiceTicketServlet"})
 public class LoadServiceTicketServlet extends HttpServlet {
@@ -20,16 +20,16 @@ public class LoadServiceTicketServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
 
         
-        if (session == null || !"Mechanic".equals(session.getAttribute("ROLE"))) {
+        /*if (session == null || !"Mechanic".equals(session.getAttribute("ROLE"))) {
             response.sendRedirect("MainController?action=Home");
             return;
-        }
+        }*/
         try {
             
-            MechanicDTO mechanic = (MechanicDTO) session.getAttribute("USER");
+            Mechanic mechanic = (Mechanic) session.getAttribute("mechanic");
             
             
-            String mechanicID = mechanic.getMechanicID();
+            long mechanicID = mechanic.getMechanicID();
 
             
             ServiceMechanicDAO dao = new ServiceMechanicDAO();
@@ -38,8 +38,8 @@ public class LoadServiceTicketServlet extends HttpServlet {
 
             
             request.setAttribute("SERVICE_TICKETS", list);
-            
-            request.getRequestDispatcher("updateServiceTicket.jsp").forward(request, response);
+            System.out.println("update" + list);
+            request.getRequestDispatcher("/MechanicDashboard/UpdateTicketFunction.jsp").forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();

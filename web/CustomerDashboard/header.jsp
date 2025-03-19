@@ -29,7 +29,7 @@
     <body>
         <header class="container">
             <nav class="navbar fixed-top header">
-                <a class="navbar-brand" href="home.jsp" style="margin-left: 20px; color: #EBEBEB;">
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/CustomerDashboard/home.jsp" style="margin-left: 20px; color: #EBEBEB;">
                     Customer Dashboard
                 </a>
                 <form action="${pageContext.request.contextPath}/MainServlet" method="post">

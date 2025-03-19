@@ -36,16 +36,17 @@ public class CustomerServiceTicketServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
-        String custID = (String) session.getAttribute("custID");
+        Integer custID = (Integer) session.getAttribute("custID");
 
         if (custID == null) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("Login/index.jsp");
             return;
         }
 
         ServiceTicketDAO dao = new ServiceTicketDAO();
         List<ServiceTicketDTO> tickets = dao.getServiceTicketsByCustomerID(custID);
         request.setAttribute("serviceTickets", tickets);
+        System.out.println("st" + tickets);
         
         String serviceTicketIDParam = request.getParameter("serviceTicketID");
 
@@ -58,13 +59,14 @@ public class CustomerServiceTicketServlet extends HttpServlet {
                     ticketDetail.setServices(dao.getServiceDetails(serviceTicketID));
                     ticketDetail.setParts(dao.getPartDetails(serviceTicketID));
                     request.setAttribute("ticketDetail", ticketDetail);
+                    System.out.println("td" + ticketDetail);
                 }
             } catch (NumberFormatException e) {
                 request.setAttribute("ERROR", "Invalid Service Ticket ID.");
             }
         }
 
-        request.getRequestDispatcher("customerServiceTicket.jsp").forward(request, response);
+        request.getRequestDispatcher("MainController?action=TicketDetails").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

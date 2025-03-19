@@ -1,42 +1,38 @@
-<%-- 
-    Document   : home
-    Created on : Mar 9, 2025, 2:43:01 PM
-    Author     : ASUS
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Mechanic Dashboard</title>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/MechanicDashboard/style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     </head>
     <body>
-        <%--Header--%>
+        <%-- Header --%>
         <jsp:include page="header.jsp"/>
 
-        <div class="wrapper">          
-            <%--Side bar--%>
+        <div class="wrapper">
+            <%-- Sidebar --%>
             <jsp:include page="sidebar.jsp"/>
-            
-            <%--Main content--%>
-            <div class="main p-3 d-flex">
-                    <div class="text-center mx-auto my-auto">
-                        <h1>
-                        Welcome back, ${sessionScope.mechanic.mechanicName}
-                        </h1>
-                        <p>Please choose one of the following functions on the sidebar to begin</p>
-                        <p class="text-muted">----- or -----</p>
-                        <form action="${pageContext.request.contextPath}/MainServlet" method="post">
-                            <input type="hidden" name="action" value="logout">
-                            <button 
-                                type="submit"
-                                class="btn btn-secondary my-2 my-sm-0">
+
+            <%-- Main content --%>
+            <div class="main">
+                <div class="container-box">
+                    <h1 class="welcome-text">Welcome back, ${sessionScope.mechanic.mechanicName}! 👋</h1>
+                    <p class="text-muted">Manage your services efficiently</p>
+                    <hr>
+                    <hr>
+                    <p>Please choose one of the functions on the sidebar to begin.</p>
+                    <p class="text-muted">----- or -----</p>
+
+                    <%-- Logout Button --%>
+                    <form action="${pageContext.request.contextPath}/MainServlet" method="post">
+                        <input type="hidden" name="action" value="logout">
+                        <button type="submit" class="btn-logout">
                             Logout
-                            </button>
-                        </form>
+                        </button>
+                    </form>
                 </div>
-                            
             </div>
         </div>
     </body>

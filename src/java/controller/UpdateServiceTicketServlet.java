@@ -1,14 +1,15 @@
 package controller;
 
 import DAO.ServiceMechanicDAO;
-import model.MechanicDTO;
 import java.io.IOException;
+import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Mechanic;
 
 @WebServlet(name = "UpdateServiceTicketServlet", urlPatterns = {"/UpdateServiceTicketServlet"})
 public class UpdateServiceTicketServlet extends HttpServlet {
@@ -30,8 +31,14 @@ public class UpdateServiceTicketServlet extends HttpServlet {
                 double rate = Double.parseDouble(request.getParameter("rate_" + serviceTicketID + "_" + serviceID));
 
                 HttpSession session = request.getSession();
-                MechanicDTO mechanic = (MechanicDTO) session.getAttribute("USER");
-                String mechanicID = mechanic.getMechanicID();
+                Enumeration<String> attributeNames = session.getAttributeNames();
+                while (attributeNames.hasMoreElements()) {
+                    String name = attributeNames.nextElement();
+                    Object value = session.getAttribute(name);
+                    System.out.println("Session Attribute: " + name + " = " + value);
+                }
+                Mechanic mechanic = (Mechanic) session.getAttribute("mechanic");
+                long mechanicID = mechanic.getMechanicID();
 
                 ServiceMechanicDAO dao = new ServiceMechanicDAO();
                 boolean success = dao.updateServiceMechanic(serviceTicketID, serviceID, mechanicID, hours, comment, rate);

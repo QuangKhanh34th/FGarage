@@ -4,7 +4,7 @@ public class ServiceMechanicDTO {
 
     private int serviceTicketID;
     private int serviceID;
-    private String mechanicID;
+    private long mechanicID;
     private int hours;
     private String comment;
     private double rate;
@@ -12,7 +12,7 @@ public class ServiceMechanicDTO {
     public ServiceMechanicDTO() {
     }
 
-    public ServiceMechanicDTO(int serviceTicketID, int serviceID, String mechanicID, int hours, String comment, double rate) {
+    public ServiceMechanicDTO(int serviceTicketID, int serviceID, long mechanicID, int hours, String comment, double rate) {
         this.serviceTicketID = serviceTicketID;
         this.serviceID = serviceID;
         this.mechanicID = mechanicID;
@@ -37,11 +37,11 @@ public class ServiceMechanicDTO {
         this.serviceID = serviceID;
     }
 
-    public String getMechanicID() {
+    public long getMechanicID() {
         return mechanicID;
     }
 
-    public void setMechanicID(String mechanicID) {
+    public void setMechanicID(long mechanicID) {
         this.mechanicID = mechanicID;
     }
 
@@ -71,13 +71,7 @@ public class ServiceMechanicDTO {
 
     @Override
     public String toString() {
-        return "ServiceMechanicDTO{"
-                + "serviceTicketID=" + serviceTicketID
-                + ", serviceID=" + serviceID
-                + ", mechanicID='" + mechanicID + '\''
-                + ", hours=" + hours
-                + ", comment='" + comment + '\''
-                + ", rate=" + rate
-                + '}';
+        return "ServiceMechanicDTO{" + "serviceTicketID=" + serviceTicketID + ", serviceID=" + serviceID + ", mechanicID=" + mechanicID + ", hours=" + hours + ", comment=" + comment + ", rate=" + rate + '}';
     }
+    
 }

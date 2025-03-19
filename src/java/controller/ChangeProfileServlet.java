@@ -1,13 +1,13 @@
 package controller;
 
 import DAO.CustomerDAO;
-import model.CustomerDTO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Customer;
 
 /**
  *
@@ -22,37 +22,42 @@ public class ChangeProfileServlet extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
 
         HttpSession session = request.getSession();
-        CustomerDTO customer = (CustomerDTO) session.getAttribute("USER");
+        Customer customer = (Customer) session.getAttribute("customer");
+        CustomerDAO customerDAO = new CustomerDAO();
 
-        if (customer == null) {
-            response.sendRedirect("login.jsp");
-            return;
-        }
+        if (customer != null) {
+            String method = request.getMethod(); // Lấy phương thức HTTP (GET hoặc POST)
 
-        
-        String custName = request.getParameter("custName");
-        String phone = request.getParameter("phone");
-        String sex = request.getParameter("sex");
-        String cusAddress = request.getParameter("cusAddress");
+            if (method.equalsIgnoreCase("GET")) {
+                // Xử lý yêu cầu GET (hiển thị form)
+                request.setAttribute("customer", customer);
+                request.getRequestDispatcher("MainController?action=UpdateProfile").forward(request, response);
+            } else if (method.equalsIgnoreCase("POST")) {
+                // Xử lý yêu cầu POST (cập nhật dữ liệu)
+                String custName = request.getParameter("custName");
+                String phone = request.getParameter("phone");
+                String sex = request.getParameter("sex");
+                String cusAddress = request.getParameter("cusAddress");
 
-        
-        customer.setCustName(custName);
-        customer.setPhone(phone);
-        customer.setSex(sex);
-        customer.setCusAddress(cusAddress);
+                customer.setCustName(custName);
+                customer.setPhone(phone);
+                customer.setSex(sex);
+                customer.setCusAddress(cusAddress);
 
-        
-        CustomerDAO dao = new CustomerDAO();
-        boolean success = dao.updateCustomerProfile(customer);
+                boolean success = customerDAO.updateCustomerProfile(customer);
 
-        if (success) {
-            session.setAttribute("USER", customer); 
-            request.setAttribute("SUCCESS", "Profile updated successfully!");
+                if (success) {
+                    request.setAttribute("SUCCESS", "Profile updated successfully!");
+                    session.setAttribute("customer", customer); // Cập nhật session với thông tin mới
+                } else {
+                    request.setAttribute("ERROR", "Failed to update profile. Please try again!");
+                }
+                request.setAttribute("customer", customer); // Đặt customer vào request để hiển thị lại form
+                request.getRequestDispatcher("MainController?action=UpdateProfile").forward(request, response);
+            }
         } else {
-            request.setAttribute("ERROR", "Failed to update profile. Please try again!");
+            response.sendRedirect("Login/index.jsp");
         }
-
-        request.getRequestDispatcher("MainController?action=ChangeProfile").forward(request, response);
     }
 
     @Override

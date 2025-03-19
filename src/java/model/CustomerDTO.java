@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 public class CustomerDTO implements Serializable{
 
-    private String custID;
+    private int custID;
     private String custName;
     private String phone;
     private String sex;
@@ -22,7 +22,7 @@ public class CustomerDTO implements Serializable{
     public CustomerDTO() {
     }
 
-    public CustomerDTO(String custID, String custName, String phone, String sex, String cusAddress) {
+    public CustomerDTO(int custID, String custName, String phone, String sex, String cusAddress) {
         this.custID = custID;
         this.custName = custName;
         this.phone = phone;
@@ -30,11 +30,11 @@ public class CustomerDTO implements Serializable{
         this.cusAddress = cusAddress;
     }
 
-    public String getCustID() {
+    public int getCustID() {
         return custID;
     }
 
-    public void setCustID(String custID) {
+    public void setCustID(int custID) {
         this.custID = custID;
     }
 

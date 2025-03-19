@@ -141,7 +141,7 @@ public class ServiceTicketDAO {
                 int serviceTicketID = rs.getInt("serviceTicketID");
                 Date dateReceived = rs.getDate("dateReceived");
                 Date dateReturned = rs.getDate("dateReturned");
-                String custID = rs.getString("custID");
+                int custID = rs.getInt("custID");
                 String carID = rs.getString("carID");
 
                 list.add(new ServiceTicketDTO(serviceTicketID, dateReceived, dateReturned, custID, carID));
@@ -184,7 +184,7 @@ public class ServiceTicketDAO {
                     int serviceTicketID = rs.getInt("serviceTicketID");
                     Date dateReceived = rs.getDate("dateReceived");
                     Date dateReturned = rs.getDate("dateReturned");
-                    String custID = rs.getString("custID");
+                    int custID = rs.getInt("custID");
                     String carID = rs.getString("carID");
 
                     list.add(new ServiceTicketDTO(serviceTicketID, dateReceived, dateReturned, custID, carID));
@@ -208,7 +208,7 @@ public class ServiceTicketDAO {
         return searchServiceTickets("dateReceived", dateReceived);
     }
 
-    public List<ServiceTicketDTO> getServiceTicketsByCustomerID(String custID) {
+    public List<ServiceTicketDTO> getServiceTicketsByCustomerID(int custID) {
         List<ServiceTicketDTO> tickets = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ps = null;
@@ -220,7 +220,7 @@ public class ServiceTicketDAO {
                 String sql = "SELECT serviceTicketID, dateReceived, dateReturned, carID "
                         + "FROM ServiceTicket WHERE custID = ?";
                 ps = conn.prepareStatement(sql);
-                ps.setString(1, custID);
+                ps.setInt(1, custID);
                 rs = ps.executeQuery();
 
                 while (rs.next()) {
