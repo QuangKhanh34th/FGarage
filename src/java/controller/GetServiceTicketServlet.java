@@ -33,19 +33,17 @@ public class GetServiceTicketServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        //Re-fetching Service Ticket list info from database if a change in database is found
-        boolean dbUpdate = false;
         HttpSession session = request.getSession();
+        boolean globalUpdate = false;
         try {
-            //get dbUpdate attribute set by other Servlets
-            //if is set, the returned value should always be true
-            dbUpdate = (boolean) request.getAttribute("dbUpdate");
+            globalUpdate = (boolean) session.getAttribute("globalUpdate");
         } catch (NullPointerException e) {
-            System.out.println("[GetServiceTicketServlet.java] Warning: dbUpdate not found");
+            System.out.println("globalUpdate not found");
         }
 
-        if (dbUpdate) {
-            session.removeAttribute("carList");
+        if (globalUpdate) {
+            session.removeAttribute("globalUpdate");
+            session.removeAttribute("ticketList");
         }
 
         ServiceTicketService ticketService = new ServiceTicketService();
@@ -71,9 +69,9 @@ public class GetServiceTicketServlet extends HttpServlet {
         int totalPages = ticketService.getTotalPages(tickets, recordsPerPage);
 
         session.setAttribute("currentTicketPageList", currentTicketPageList);
-        session.setAttribute("currentPage", page);
-        session.setAttribute("totalPages", totalPages);
-        
+        session.setAttribute("ticketCurrentPage", page);
+        session.setAttribute("ticketTotalPages", totalPages);
+
         response.sendRedirect(request.getContextPath() + "/SalesDashboard/ServiceTicketFunction.jsp");
     }
 

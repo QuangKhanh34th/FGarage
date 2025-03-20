@@ -90,7 +90,7 @@
                             <div class="modal-body">
                                 <p>
                                     This action will delete the customer [${sessionScope.custInfo.getCustName()}] 
-                                    and their associated information from the database.
+                                    and all of their related info from the database.
                                 </p>
                                 <p class="mb-5">
                                     Are you sure you want to delete customer [${sessionScope.custInfo.getCustName()}]?

@@ -18,7 +18,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Ticket Info</title>
     </head>
-    <body>
+    <body style="overflow: hidden;">
         <%--Header--%>
         <jsp:include page="header.jsp"/>
 
@@ -39,12 +39,23 @@
                                 <p><strong>Date Received:</strong> ${sessionScope.ticketInfo.getDateReceived()}</p>
                                 <p><strong>Date Returned:</strong> ${sessionScope.ticketInfo.getDateReturned()}</p>
                                 <p><strong>Customer ID:</strong> 
-                                    ${sessionScope.ticketInfo.getCustID()} 
-                                    <a href="${pageContext.request.contextPath}/MainServlet?action=custView&custId=${sessionScope.ticketInfo.getCustID()}">(See Customer Detail)</a>
+                                    <c:if test="${empty sessionScope.ticketInfo.getCustID()}">
+                                        Removed from database
+                                    </c:if>
+
+                                    <c:if test="${not empty sessionScope.ticketInfo.getCustID()}">
+                                        ${sessionScope.ticketInfo.getCustID()}
+                                        <a href="${pageContext.request.contextPath}/MainServlet?action=custView&custId=${sessionScope.ticketInfo.getCustID()}">(See Customer Detail)</a>
+                                    </c:if>
                                 </p>
                                 <p><strong>Car ID: </strong>
-                                    ${sessionScope.ticketInfo.getCarID()}
-                                    <a href="${pageContext.request.contextPath}/MainServlet?action=carView&carId=${sessionScope.ticketInfo.getCarID()}">(See Car Detail)</a>
+                                    <c:if test="${empty sessionScope.ticketInfo.getCarID()}">
+                                        Removed from database
+                                    </c:if>
+                                    <c:if test="${not empty sessionScope.ticketInfo.getCarID()}">
+                                        ${sessionScope.ticketInfo.getCarID()}
+                                        <a href="${pageContext.request.contextPath}/MainServlet?action=carView&carId=${sessionScope.ticketInfo.getCarID()}">(See Car Detail)</a>
+                                    </c:if>
                                 </p>
                             </div>
                         </div>

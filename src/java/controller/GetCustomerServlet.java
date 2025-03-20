@@ -45,6 +45,7 @@ public class GetCustomerServlet extends HttpServlet {
             }
             
             if (dbUpdate) {
+                session.setAttribute("globalUpdate", dbUpdate);
                 session.removeAttribute("customerList");
             }
             
@@ -88,8 +89,8 @@ public class GetCustomerServlet extends HttpServlet {
             
             
             session.setAttribute("currentCusPageList", currentCusPageList);
-            session.setAttribute("currentPage", page);
-            session.setAttribute("totalPages", totalPages);
+            session.setAttribute("cusCurrentPage", page);
+            session.setAttribute("cusTotalPages", totalPages);
             
             
             response.sendRedirect(request.getContextPath() + "/SalesDashboard/CustomerFunction.jsp");
