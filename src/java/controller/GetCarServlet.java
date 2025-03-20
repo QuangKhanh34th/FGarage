@@ -34,18 +34,24 @@ public class GetCarServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         //Re-fetching car list info from database if a change in database is found
         boolean dbUpdate = false;
+        
         HttpSession session = request.getSession();
         try {
-            //get dbUpdate attribute set by other Servlets
+            //get dbUpdate attribute set by related Servlets
             //if is set, the returned value should always be true
             dbUpdate = (boolean) request.getAttribute("dbUpdate");
+            
         } catch (NullPointerException e) {
             System.out.println("[GetCarServlet.java] Warning: dbUpdate not found");
         }
 
+        //set the globalUpdate boolean for foreign key tables
         if (dbUpdate) {
+            session.setAttribute("globalUpdate", dbUpdate);
             session.removeAttribute("carList");
         }
+        
+        
 
         //Initialize variables
         String searchCriteria = null;

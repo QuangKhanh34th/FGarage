@@ -101,7 +101,7 @@
                             <div class="modal-body">
                                 <p>
                                     This action will delete the Car [${sessionScope.carInfo.getModel()} ${sessionScope.carInfo.getYear()}] 
-                                    and their associated information from the database.
+                                    and all of its related info from the database.
                                 </p>
                                 <p class="mb-5">
                                     Are you sure you want to delete customer [${sessionScope.carInfo.getModel()} ${sessionScope.carInfo.getYear()}]?

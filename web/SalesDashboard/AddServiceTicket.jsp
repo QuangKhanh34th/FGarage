@@ -337,6 +337,17 @@
 
             function prepareFormData() {
                 const form = document.getElementById('serviceTicketForm');
+                const dateReceived = document.getElementById('dateReceived').value;
+                const dateReturned = document.getElementById('dateReturned').value;
+
+                // Date Validation
+                if (dateReceived && dateReturned) {
+                    if (new Date(dateReturned) < new Date(dateReceived)) {
+                        alert("Date Returned cannot be earlier than Date Received.");
+                        event.preventDefault(); // Prevent form submission
+                        return;
+                    }
+                }
 
                 // Check if Services or Parts are Empty
                 if (addedServices.length === 0 || addedPartsList.length === 0) { // Changed condition

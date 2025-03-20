@@ -9,11 +9,18 @@
 
 <%
     // Check if the ticket data has been loaded
-    if (session.getAttribute("currentTicketPageList") == null) {
+    boolean globalUpdate = false;
+    try {
+    globalUpdate = (boolean) session.getAttribute("globalUpdate");
+    } catch (NullPointerException e) {
+        System.out.println("[ServiceTicketFunction.jsp] globalUpdate not found");
+    }
+    if (session.getAttribute("currentTicketPageList") == null || globalUpdate ) {
         // If not, forward the request to the GetServiceTicketServlet
         request.getRequestDispatcher("/MainServlet?action=getTicketList").forward(request, response);
         return; // Important: Prevent further processing of the JSP
     }
+    
 %>
 <!DOCTYPE html>
 <html>
@@ -92,7 +99,7 @@
                             <tbody class="table-group-divider">
                                 <c:forEach var="ticket" items="${sessionScope.currentTicketPageList}" varStatus="status"> 
                                     <tr>
-                                        <td>${(sessionScope.currentPage - 1) * 10 + status.index + 1}</td>
+                                        <td>${(sessionScope.ticketCurrentPage - 1) * 10 + status.index + 1}</td>
                                         <%--Pass ticketID and action to MainServlet to redirect to appropriate servlet--%>
                                         <td>
                                             <a href="${pageContext.request.contextPath}/MainServlet?action=ticketView&ticketId=${ticket.getServiceTicketID()}">
@@ -117,9 +124,9 @@
                                     then display the "arrow left" link, indicate there is a previous page
                                     the user can click it to view the previous page (currentPage - 1)
                                 --%>
-                                <c:if test="${sessionScope.currentPage > 1}">
+                                <c:if test="${sessionScope.ticketCurrentPage > 1}">
                                     <li class="page-item">
-                                        <a class="page-link" href="${pageContext.request.contextPath}/GetServiceTicketServlet?page=${currentPage - 1}" aria-label="Previous">
+                                        <a class="page-link" href="${pageContext.request.contextPath}/GetServiceTicketServlet?page=${ticketCurrentPage - 1}" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
@@ -129,8 +136,8 @@
                                     reached the totalPages (calculated by servlet)
                                     If the added <li> is the current page, give it "active" class to show we are at that page
                                 --%>
-                                <c:forEach var="i" begin="1" end="${sessionScope.totalPages}">
-                                    <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                <c:forEach var="i" begin="1" end="${sessionScope.ticketTotalPages}">
+                                    <li class="page-item ${i == ticketCurrentPage ? 'active' : ''}">
                                         <a class="page-link" href="${pageContext.request.contextPath}/GetServiceTicketServlet?page=${i}">${i}</a>
                                     </li>
                                 </c:forEach>
@@ -138,9 +145,9 @@
                                     same as "arrow left" link, this time is for the "arrow right"
                                     indicate there is a next page available
                                 --%>
-                                <c:if test="${sessionScope.currentPage < sessionScope.totalPages}">
+                                <c:if test="${sessionScope.ticketCurrentPage < sessionScope.ticketTotalPages}">
                                     <li class="page-item">
-                                        <a class="page-link" href="${pageContext.request.contextPath}/GetServiceTicketServlet?page=${currentPage + 1}" aria-label="Next">
+                                        <a class="page-link" href="${pageContext.request.contextPath}/GetServiceTicketServlet?page=${ticketCurrentPage + 1}" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
                                     </li>

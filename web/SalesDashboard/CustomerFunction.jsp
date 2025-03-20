@@ -25,7 +25,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Sales Dashboard</title>
     </head>
-    <body style="overflow: hidden;">
+    <body>
         <%--Header--%>
         <jsp:include page="header.jsp"/>
 
@@ -176,7 +176,7 @@
                             <tbody class="table-group-divider">
                                 <c:forEach var="customer" items="${sessionScope.currentCusPageList}" varStatus="status"> 
                                     <tr>
-                                        <td>${(sessionScope.currentPage - 1) * 10 + status.index + 1}</td>
+                                        <td>${(sessionScope.cusCurrentPage - 1) * 10 + status.index + 1}</td>
                                         <%--Pass custID and action to MainServlet to redirect to appropriate servlet--%>
                                         <td>
                                             <a href="${pageContext.request.contextPath}/MainServlet?action=custView&custId=${customer.getCustID()}">
@@ -199,22 +199,22 @@
                                 <%--
                                     if current page is 2 or larger
                                     then display the "arrow left" link, indicate there is a previous page
-                                    the user can click it to view the previous page (currentPage - 1)
+                                    the user can click it to view the previous page (cusCurrentPage - 1)
                                 --%>
-                                <c:if test="${sessionScope.currentPage > 1}">
+                                <c:if test="${sessionScope.cusCurrentPage > 1}">
                                     <li class="page-item">
-                                        <a class="page-link" href="${pageContext.request.contextPath}/GetCustomerServlet?page=${currentPage - 1}" aria-label="Previous">
+                                        <a class="page-link" href="${pageContext.request.contextPath}/GetCustomerServlet?page=${cusCurrentPage - 1}" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
                                 </c:if>
                                 <%--
                                     Add a new <li class="page-item"> using a for-loop until index "i"
-                                    reached the totalPages (calculated by servlet)
+                                    reached the cusTotalPages (calculated by servlet)
                                     If the added <li> is the current page, give it "active" class to show we are at that page
                                 --%>
-                                <c:forEach var="i" begin="1" end="${sessionScope.totalPages}">
-                                    <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                <c:forEach var="i" begin="1" end="${sessionScope.cusTotalPages}">
+                                    <li class="page-item ${i == cusCurrentPage ? 'active' : ''}">
                                         <a class="page-link" href="${pageContext.request.contextPath}/GetCustomerServlet?page=${i}">${i}</a>
                                     </li>
                                 </c:forEach>
@@ -222,9 +222,9 @@
                                     same as "arrow left" link, this time is for the "arrow right"
                                     indicate there is a next page available
                                 --%>
-                                <c:if test="${sessionScope.currentPage < sessionScope.totalPages}">
+                                <c:if test="${sessionScope.cusCurrentPage < sessionScope.cusTotalPages}">
                                     <li class="page-item">
-                                        <a class="page-link" href="${pageContext.request.contextPath}/GetCustomerServlet?page=${currentPage + 1}" aria-label="Next">
+                                        <a class="page-link" href="${pageContext.request.contextPath}/GetCustomerServlet?page=${cusCurrentPage + 1}" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
                                     </li>
