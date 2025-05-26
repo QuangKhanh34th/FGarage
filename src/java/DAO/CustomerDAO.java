@@ -60,6 +60,8 @@ public class CustomerDAO {
     
     
     
+    // Return full list of customer data in DB, if an exception is caught
+    // the method should return an empty list
     public static ArrayList<Customer> getAllCustomers() {
         ArrayList<Customer> cusList = new ArrayList<>();
         try {
@@ -98,6 +100,7 @@ public class CustomerDAO {
             if (connection != null) connection.close();
         } catch (Exception e) {
             System.out.println("Unexpected error occured in CustomerDAO.getAllCustomers()");
+            return cusList;
         }
         
         return cusList;

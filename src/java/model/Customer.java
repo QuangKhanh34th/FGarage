@@ -5,12 +5,14 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  *
  * @author ASUS
  */
 public class Customer implements Serializable {
+
     private int custID;
     private String custName;
     private String phone;
@@ -34,8 +36,6 @@ public class Customer implements Serializable {
         this.sex = sex;
         this.cusAddress = cusAddress;
     }
-    
-    
 
     public int getCustID() {
         return custID;
@@ -76,6 +76,34 @@ public class Customer implements Serializable {
     public void setCusAddress(String cusAddress) {
         this.cusAddress = cusAddress;
     }
+
+    // *** THIS IS THE CRUCIAL PART THAT IS LIKELY MISSING OR INCORRECT ***
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true; // Same object instance
+        if (o == null || getClass() != o.getClass()) return false; // Null or different class
+        Customer customer = (Customer) o; // Cast to Customer
+        // Compare all relevant fields for equality
+        return custID == customer.custID &&
+               Objects.equals(custName, customer.custName) && // Use Objects.equals for null-safe string comparison
+               Objects.equals(phone, customer.phone) &&
+               Objects.equals(sex, customer.sex) &&
+               Objects.equals(cusAddress, customer.cusAddress);
+    }
     
-    
+    @Override
+    public int hashCode() {
+        return Objects.hash(custID, custName, phone, sex, cusAddress);
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{"
+                + "custID=" + custID
+                + ", custName='" + custName + '\''
+                + ", custPhone='" + phone + '\''
+                + ", custGender='" + sex + '\''
+                + ", custAddress='" + cusAddress + '\''
+                + '}';
+    }
 }

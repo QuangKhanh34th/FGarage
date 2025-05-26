@@ -5,6 +5,7 @@
 package Service;
 
 import DAO.CustomerDAO;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Customer;
 import javax.servlet.http.HttpSession;
@@ -15,7 +16,8 @@ import javax.servlet.http.HttpSession;
  */
 public class CustomerService {
     
-    //method with no parameter to get all customers from the database
+    // method with no parameter to get all customers from the database
+    // if SQLException is caught, return an empty list
     public ArrayList<Customer> getCustomers() {
         return CustomerDAO.getAllCustomers();
     }

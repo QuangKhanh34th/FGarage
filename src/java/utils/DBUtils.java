@@ -6,6 +6,7 @@ package utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Properties;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Properties;
  */
 public class DBUtils {
 
-    public static Connection getConnection() throws Exception {
+    public static Connection getConnection() throws NullPointerException, ClassNotFoundException, SQLException {
         /* Connection cn = null;
          String IP = "localhost";
         String instanceName = "QUANGKHANH";
