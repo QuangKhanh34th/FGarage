@@ -20,7 +20,7 @@ A web-based garage management system built with **Java EE** and **SQL Server** f
 - **Build Tool**: Apache Ant
 - **Architecture**: MVC Pattern with DAO Layer
 
-## 🚀 Quick Start
+## 🚀 Installation
 
 1. **Setup Database**: Run the CarDealership SQL script in SQL Server
 2. **Configure Connection**: Update `DBUtils.java` with your SQL Server credentials
